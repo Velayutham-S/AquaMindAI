@@ -1,0 +1,33 @@
+# Secrets — never commit
+.env
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Generated build artifacts (reproducible from source)
+agents/data_agent/database/groundwater.db
+structured_data/master_datasets/
+
+# Generated schema documentation (regenerate with schema_generator.py)
+agents/data_agent/llm/llm_inputs/database_schema.md
+
+# Raw source data (datasets / documents kept out of the repo)
+pdf/
+structured_data/district/
+structured_data/firka/
+structured_data/groundwater_level/
+structured_data/rainfall/
+structured_data/river_discharge/
+structured_data/river_water_level/
+
+# Local / experimental / temporary artifacts (not production)
+benchmark_results.txt
+test_openrouter.py
+
+# Other generated artifacts and local caches
+logs/
+datasets/
+embeddings/
+*.faiss
+*.index
