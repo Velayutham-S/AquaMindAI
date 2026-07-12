@@ -24,6 +24,7 @@ structured_data/river_water_level/
 # Local / experimental / temporary artifacts (not production)
 benchmark_results.txt
 test_openrouter.py
+endtest.txt
 
 # Other generated artifacts and local caches
 logs/

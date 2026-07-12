@@ -71,6 +71,12 @@ FORBIDDEN_SQL_KEYWORDS: tuple[str, ...] = (
     "ATTACH", "DETACH", "PRAGMA", "VACUUM", "REPLACE",
 )
 
+#: The only tables the generated SQL may reference (must match groundwater.db).
+VALID_TABLES: frozenset[str] = frozenset({
+    "district", "firka", "groundwater_level",
+    "rainfall", "river_discharge", "river_water_level",
+})
+
 
 # --------------------------------------------------------------------------- #
 # Exceptions
@@ -94,6 +100,17 @@ class EmptyQueryError(SqlGeneratorError):
 
 class LlmApiError(SqlGeneratorError):
     """The LLM API call failed (after retries) or returned no usable text."""
+
+
+class ValidationError(SqlGeneratorError):
+    """The generated SQL failed validation (malformed or unsafe).
+
+    The offending SQL is attached as ``.sql`` for diagnostics.
+    """
+
+    def __init__(self, message: str, sql: str | None = None) -> None:
+        super().__init__(message)
+        self.sql = sql
 
 
 # --------------------------------------------------------------------------- #
@@ -154,35 +171,69 @@ def clean_sql(raw_text: str) -> str:
     return text
 
 
-def validate_sql(sql: str) -> tuple[bool, list[str]]:
-    """Check the SQL is a single, read-only ``SELECT`` with no markdown/JSON.
+def _referenced_tables(sql: str) -> set[str]:
+    """Return the lower-cased table names referenced after FROM / JOIN.
 
-    Returns ``(is_valid, reasons)``; ``reasons`` lists every failed check.
+    Subqueries (``FROM (SELECT ...)``) yield no name here; the inner table is
+    still captured by its own FROM.
     """
-    reasons: list[str] = []
-    text = sql.strip()
+    pattern = re.compile(r"(?i)\b(?:from|join)\s+([A-Za-z_][A-Za-z0-9_]*)")
+    return {match.group(1).lower() for match in pattern.finditer(sql)}
 
+
+def validate_sql(sql: str) -> None:
+    """Validate that ``sql`` is a single, safe, well-formed SQLite SELECT.
+
+    Enforces, in order: non-empty; no markdown; no JSON; begins with SELECT;
+    contains a FROM clause; at most one (trailing) semicolon / exactly one
+    statement; no destructive keywords; and references only documented tables.
+
+    Raises ``ValidationError`` (with a message describing every failed check and
+    the offending SQL attached as ``.sql``) when the SQL is invalid. Returns
+    ``None`` when the SQL is valid. It never silently returns a boolean.
+    """
+    text = (sql or "").strip()
+
+    # Rule 7: reject empty / whitespace-only responses.
     if not text:
-        return False, ["empty SQL"]
+        raise ValidationError("SQL is empty or whitespace-only.", sql=sql)
 
+    reasons: list[str] = []
+
+    # Rule 5: reject markdown.
     if "```" in text:
-        reasons.append("contains markdown fences")
+        reasons.append("contains markdown code fences")
+
+    # Rule 6: reject JSON.
     if text[0] in "{[":
-        reasons.append("looks like JSON")
+        reasons.append("looks like JSON (starts with '{' or '[')")
 
-    lowered = text.lstrip().lower()
-    if not (lowered.startswith("select") or lowered.startswith("with")):
-        reasons.append("does not start with SELECT/WITH")
+    # Rule 2: must begin with SELECT.
+    if not re.match(r"(?i)select\b", text):
+        reasons.append("does not begin with SELECT")
 
-    # Exactly one statement: no semicolons remain after the trailing one is stripped.
-    if ";" in text:
-        reasons.append("contains multiple statements (embedded ';')")
+    # Rule 3: must contain a FROM clause.
+    if not re.search(r"(?i)\bfrom\b", text):
+        reasons.append("missing FROM clause")
 
+    # Rules 1 & 8: exactly one statement (at most a single trailing semicolon).
+    if text.count(";") > 1:
+        reasons.append("contains more than one semicolon (multiple statements)")
+    elif ";" in text and not text.endswith(";"):
+        reasons.append("contains an embedded semicolon (multiple statements)")
+
+    # Rule 4: reject destructive / non-read-only keywords.
     for keyword in FORBIDDEN_SQL_KEYWORDS:
-        if re.search(rf"\b{keyword}\b", text, flags=re.IGNORECASE):
+        if re.search(rf"(?i)\b{keyword}\b", text):
             reasons.append(f"contains forbidden keyword '{keyword}'")
 
-    return (not reasons), reasons
+    # Only documented tables may be referenced.
+    unknown_tables = sorted(_referenced_tables(text) - VALID_TABLES)
+    if unknown_tables:
+        reasons.append(f"references unknown table(s): {', '.join(unknown_tables)}")
+
+    if reasons:
+        raise ValidationError("Invalid SQL — " + "; ".join(reasons) + ".", sql=text)
 
 
 # --------------------------------------------------------------------------- #
@@ -302,10 +353,14 @@ class SqlGenerator:
     # -- public API ------------------------------------------------------- #
 
     def generate(self, user_query: str) -> str:
-        """Return exactly one SQLite SELECT query for ``user_query``.
+        """Return exactly one validated SQLite SELECT query for ``user_query``.
 
-        Raises ``EmptyQueryError`` for a blank query and ``LlmApiError`` on
-        API failure or an empty/unusable response.
+        The generated SQL is validated before it is returned, so malformed or
+        unsafe SQL never reaches the executor.
+
+        Raises ``EmptyQueryError`` for a blank query, ``LlmApiError`` on API
+        failure or an empty/unusable response, and ``ValidationError`` if the
+        generated SQL fails validation.
         """
         if not user_query or not user_query.strip():
             raise EmptyQueryError("User query is empty.")
@@ -315,6 +370,7 @@ class SqlGenerator:
         sql = clean_sql(raw)
         if not sql:
             raise LlmApiError("LLM response contained no SQL after cleaning.")
+        validate_sql(sql)
         return sql
 
 

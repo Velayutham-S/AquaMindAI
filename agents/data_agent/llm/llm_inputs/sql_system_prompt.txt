@@ -565,3 +565,54 @@ Generate the simplest correct SQLite SELECT query using only the provided schema
 Return only the SQL.
 
 Nothing else.
+
+
+==========================================================
+LARGE RESULT SET HANDLING
+==========================================================
+
+Unless the user explicitly requests:
+
+• all records
+• the complete dataset
+• an export
+• every row
+
+or the query performs aggregation such as:
+
+COUNT
+SUM
+AVG
+MIN
+MAX
+GROUP BY
+
+the generated SQL should include a reasonable LIMIT.
+
+Use LIMIT 100 as the default.
+
+This prevents unintentionally returning extremely large result sets.
+
+Never add LIMIT to aggregate queries.
+
+Never add LIMIT when the user explicitly requests every matching record.
+
+Examples:
+
+User: Show telemetry readings.
+Output: SELECT ... FROM ... LIMIT 100
+
+User: Show groundwater observations.
+Output: SELECT ... FROM ... LIMIT 100
+
+User: Show stations in Salem.
+Output: SELECT ... FROM ... LIMIT 100
+
+User: How many stations exist?
+Output: SELECT COUNT(...) FROM ...        (no LIMIT)
+
+User: Average groundwater level.
+Output: SELECT AVG(...) FROM ...           (no LIMIT)
+
+User: Show all telemetry readings.
+Output: SELECT ... FROM ...                (no LIMIT)
