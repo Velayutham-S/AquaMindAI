@@ -1,0 +1,17 @@
+[
+  { "id": 1,  "category": "Artificial Recharge",        "difficulty": "Easy",   "query": "What are the common artificial recharge structures used to replenish groundwater?" },
+  { "id": 2,  "category": "Aquifer Management",          "difficulty": "Medium", "query": "How is an aquifer management plan prepared for over-exploited areas?" },
+  { "id": 3,  "category": "Groundwater Quality",         "difficulty": "Medium", "query": "What water quality parameters indicate groundwater contamination in Tamil Nadu?" },
+  { "id": 4,  "category": "Groundwater Policies",        "difficulty": "Medium", "query": "What regulations govern groundwater extraction and usage?" },
+  { "id": 5,  "category": "Groundwater Assessment",      "difficulty": "Medium", "query": "How is the annual extractable groundwater resource assessed under the GEC methodology?" },
+  { "id": 6,  "category": "Rainfall",                    "difficulty": "Easy",   "query": "How does rainfall contribute to groundwater recharge?" },
+  { "id": 7,  "category": "River Recharge",              "difficulty": "Medium", "query": "What role do rivers and streams play in recharging aquifers?" },
+  { "id": 8,  "category": "Water Conservation",          "difficulty": "Easy",   "query": "What water conservation measures help improve groundwater availability?" },
+  { "id": 9,  "category": "CGWB Guidelines",             "difficulty": "Medium", "query": "What are the CGWB guidelines for rainwater harvesting?" },
+  { "id": 10, "category": "Aquifer Mapping",             "difficulty": "Hard",   "query": "How is aquifer mapping carried out to characterize the groundwater system?" },
+  { "id": 11, "category": "Groundwater Depletion",       "difficulty": "Medium", "query": "What are the main causes of groundwater depletion and declining water tables?" },
+  { "id": 12, "category": "Monitoring",                  "difficulty": "Medium", "query": "How are groundwater levels monitored across observation wells?" },
+  { "id": 13, "category": "Hydrogeology",                "difficulty": "Hard",   "query": "What are the hydrogeological characteristics of hard rock aquifers?" },
+  { "id": 14, "category": "Groundwater Sustainability",  "difficulty": "Hard",   "query": "What strategies ensure long-term sustainable management of groundwater resources?" },
+  { "id": 15, "category": "Recharge Structures",         "difficulty": "Easy",   "query": "What is a percolation tank and how does it aid groundwater recharge?" }
+]

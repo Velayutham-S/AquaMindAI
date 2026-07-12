@@ -9,6 +9,9 @@ __pycache__/
 agents/data_agent/database/groundwater.db
 structured_data/master_datasets/
 
+# Generated knowledge base artifacts (rebuild with knowledge_base_pipeline.py)
+agents/knowledge_agent/knowledge_inputs/
+
 # Generated schema documentation (regenerate with schema_generator.py)
 agents/data_agent/llm/llm_inputs/database_schema.md
 
@@ -25,6 +28,8 @@ structured_data/river_water_level/
 benchmark_results.txt
 test_openrouter.py
 endtest.txt
+retrieve.txt
+knowledge_formatter_output.txt
 
 # Other generated artifacts and local caches
 logs/
