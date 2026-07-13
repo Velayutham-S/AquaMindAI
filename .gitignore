@@ -30,6 +30,18 @@ test_openrouter.py
 endtest.txt
 retrieve.txt
 knowledge_formatter_output.txt
+prediction_formatter_output.txt
+prediction_benchmark_report.txt
+final_prediction.txt
+
+# Generated prediction model artifacts (rebuild with training_pipeline.py)
+agents/prediction_agent/models/
+*.joblib
+*.pkl
+*.pickle
+*.onnx
+*.bin
+*.model
 
 # Other generated artifacts and local caches
 logs/

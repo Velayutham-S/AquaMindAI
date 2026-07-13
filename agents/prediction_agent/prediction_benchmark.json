@@ -1,0 +1,802 @@
+[
+  {
+    "id": 1,
+    "query": "Predict the groundwater level in Salem for 2016.",
+    "district": "Salem",
+    "year": 2016,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 2,
+    "query": "Estimate the groundwater level in Coimbatore during April 2019.",
+    "district": "Coimbatore",
+    "year": 2019,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 3,
+    "query": "Forecast the groundwater level in Madurai for the southwest monsoon of 2021.",
+    "district": "Madurai",
+    "year": 2021,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 4,
+    "query": "What is the expected groundwater level in Chennai in July 2022?",
+    "district": "Chennai",
+    "year": 2022,
+    "month": 7,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 5,
+    "query": "Project the groundwater level for Erode in 2023.",
+    "district": "Erode",
+    "year": 2023,
+    "month": 8,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 6,
+    "query": "Predict the groundwater level in Tirunelveli for 2024.",
+    "district": "Tirunelveli",
+    "year": 2024,
+    "month": 10,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 7,
+    "query": "Estimate the groundwater level in Krishnagiri during November 2026.",
+    "district": "Krishnagiri",
+    "year": 2026,
+    "month": 11,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 8,
+    "query": "Forecast the groundwater level in Namakkal for the northeast monsoon of 2027.",
+    "district": "Namakkal",
+    "year": 2027,
+    "month": 12,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 9,
+    "query": "What is the expected groundwater level in Theni in January 2028?",
+    "district": "Theni",
+    "year": 2028,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 10,
+    "query": "Project the groundwater level for Tiruppur in 2030.",
+    "district": "Tiruppur",
+    "year": 2030,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 11,
+    "query": "Predict the groundwater level in Vellore for 2016.",
+    "district": "Vellore",
+    "year": 2016,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 12,
+    "query": "Estimate the groundwater level in Cuddalore during July 2019.",
+    "district": "Cuddalore",
+    "year": 2019,
+    "month": 7,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 13,
+    "query": "Forecast the groundwater level in Ariyalur for the southwest monsoon of 2021.",
+    "district": "Ariyalur",
+    "year": 2021,
+    "month": 8,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 14,
+    "query": "What is the expected groundwater level in Sivagangai in October 2022?",
+    "district": "Sivagangai",
+    "year": 2022,
+    "month": 10,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 15,
+    "query": "Project the groundwater level for Virudhunagar in 2023.",
+    "district": "Virudhunagar",
+    "year": 2023,
+    "month": 11,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 16,
+    "query": "Predict the groundwater level in Ramanathapuram for 2024.",
+    "district": "Ramanathapuram",
+    "year": 2024,
+    "month": 12,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 17,
+    "query": "Estimate the groundwater level in Thanjavur during January 2026.",
+    "district": "Thanjavur",
+    "year": 2026,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 18,
+    "query": "Forecast the groundwater level in Dindigul for the pre-monsoon (summer) of 2027.",
+    "district": "Dindigul",
+    "year": 2027,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 19,
+    "query": "What is the expected groundwater level in Karur in June 2028?",
+    "district": "Karur",
+    "year": 2028,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 20,
+    "query": "Project the groundwater level for Dharmapuri in 2030.",
+    "district": "Dharmapuri",
+    "year": 2030,
+    "month": 7,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 21,
+    "query": "Predict the groundwater level in Villupuram for 2016.",
+    "district": "Villupuram",
+    "year": 2016,
+    "month": 8,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 22,
+    "query": "Estimate the groundwater level in Kanchipuram during October 2019.",
+    "district": "Kanchipuram",
+    "year": 2019,
+    "month": 10,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 23,
+    "query": "Forecast the groundwater level in Tiruvannamalai for the northeast monsoon of 2021.",
+    "district": "Tiruvannamalai",
+    "year": 2021,
+    "month": 11,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 24,
+    "query": "What is the expected groundwater level in Pudukkottai in December 2022?",
+    "district": "Pudukkottai",
+    "year": 2022,
+    "month": 12,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 25,
+    "query": "Project the groundwater level for Nagapattinam in 2023.",
+    "district": "Nagapattinam",
+    "year": 2023,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 26,
+    "query": "Predict the groundwater level in Thoothukudi for 2024.",
+    "district": "Thoothukudi",
+    "year": 2024,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 27,
+    "query": "Estimate the groundwater level in Kanniyakumari during June 2026.",
+    "district": "Kanniyakumari",
+    "year": 2026,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 28,
+    "query": "Forecast the groundwater level in Tenkasi for the southwest monsoon of 2027.",
+    "district": "Tenkasi",
+    "year": 2027,
+    "month": 7,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 29,
+    "query": "What is the expected groundwater level in Perambalur in August 2028?",
+    "district": "Perambalur",
+    "year": 2028,
+    "month": 8,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 30,
+    "query": "Project the groundwater level for Ranipet in 2030.",
+    "district": "Ranipet",
+    "year": 2030,
+    "month": 10,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 31,
+    "query": "Predict the groundwater level in Salem for 2016.",
+    "district": "Salem",
+    "year": 2016,
+    "month": 11,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 32,
+    "query": "Estimate the groundwater level in Coimbatore during December 2019.",
+    "district": "Coimbatore",
+    "year": 2019,
+    "month": 12,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 33,
+    "query": "Forecast the groundwater level in Madurai for the post-monsoon (winter) of 2021.",
+    "district": "Madurai",
+    "year": 2021,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 34,
+    "query": "What is the expected groundwater level in Chennai in April 2022?",
+    "district": "Chennai",
+    "year": 2022,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 35,
+    "query": "Project the groundwater level for Erode in 2023.",
+    "district": "Erode",
+    "year": 2023,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 36,
+    "query": "Predict the groundwater level in Tirunelveli for 2024.",
+    "district": "Tirunelveli",
+    "year": 2024,
+    "month": 7,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 37,
+    "query": "Estimate the groundwater level in Krishnagiri during August 2026.",
+    "district": "Krishnagiri",
+    "year": 2026,
+    "month": 8,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 38,
+    "query": "Forecast the groundwater level in Namakkal for the northeast monsoon of 2027.",
+    "district": "Namakkal",
+    "year": 2027,
+    "month": 10,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 39,
+    "query": "What is the expected groundwater level in Theni in November 2028?",
+    "district": "Theni",
+    "year": 2028,
+    "month": 11,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 40,
+    "query": "Project the groundwater level for Tiruppur in 2030.",
+    "district": "Tiruppur",
+    "year": 2030,
+    "month": 12,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 41,
+    "query": "Predict the groundwater level in Vellore for 2016.",
+    "district": "Vellore",
+    "year": 2016,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 42,
+    "query": "Estimate the groundwater level in Cuddalore during April 2019.",
+    "district": "Cuddalore",
+    "year": 2019,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 43,
+    "query": "Forecast the groundwater level in Ariyalur for the southwest monsoon of 2021.",
+    "district": "Ariyalur",
+    "year": 2021,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 44,
+    "query": "What is the expected groundwater level in Sivagangai in July 2022?",
+    "district": "Sivagangai",
+    "year": 2022,
+    "month": 7,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 45,
+    "query": "Project the groundwater level for Virudhunagar in 2023.",
+    "district": "Virudhunagar",
+    "year": 2023,
+    "month": 8,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 46,
+    "query": "Predict the groundwater level in Ramanathapuram for 2024.",
+    "district": "Ramanathapuram",
+    "year": 2024,
+    "month": 10,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 47,
+    "query": "Estimate the groundwater level in Thanjavur during November 2026.",
+    "district": "Thanjavur",
+    "year": 2026,
+    "month": 11,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 48,
+    "query": "Forecast the groundwater level in Dindigul for the northeast monsoon of 2027.",
+    "district": "Dindigul",
+    "year": 2027,
+    "month": 12,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 49,
+    "query": "What is the expected groundwater level in Karur in January 2028?",
+    "district": "Karur",
+    "year": 2028,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 50,
+    "query": "Project the groundwater level for Dharmapuri in 2030.",
+    "district": "Dharmapuri",
+    "year": 2030,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 51,
+    "query": "Predict the groundwater level in Villupuram for 2016.",
+    "district": "Villupuram",
+    "year": 2016,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 52,
+    "query": "Estimate the groundwater level in Kanchipuram during July 2019.",
+    "district": "Kanchipuram",
+    "year": 2019,
+    "month": 7,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 53,
+    "query": "Forecast the groundwater level in Tiruvannamalai for the southwest monsoon of 2021.",
+    "district": "Tiruvannamalai",
+    "year": 2021,
+    "month": 8,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 54,
+    "query": "What is the expected groundwater level in Pudukkottai in October 2022?",
+    "district": "Pudukkottai",
+    "year": 2022,
+    "month": 10,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 55,
+    "query": "Project the groundwater level for Nagapattinam in 2023.",
+    "district": "Nagapattinam",
+    "year": 2023,
+    "month": 11,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 56,
+    "query": "Predict the groundwater level in Thoothukudi for 2024.",
+    "district": "Thoothukudi",
+    "year": 2024,
+    "month": 12,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 57,
+    "query": "Estimate the groundwater level in Kanniyakumari during January 2026.",
+    "district": "Kanniyakumari",
+    "year": 2026,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 58,
+    "query": "Forecast the groundwater level in Tenkasi for the pre-monsoon (summer) of 2027.",
+    "district": "Tenkasi",
+    "year": 2027,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 59,
+    "query": "What is the expected groundwater level in Perambalur in June 2028?",
+    "district": "Perambalur",
+    "year": 2028,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 60,
+    "query": "Project the groundwater level for Ranipet in 2030.",
+    "district": "Ranipet",
+    "year": 2030,
+    "month": 7,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 61,
+    "query": "Predict the groundwater level in Salem for 2016.",
+    "district": "Salem",
+    "year": 2016,
+    "month": 8,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 62,
+    "query": "Estimate the groundwater level in Coimbatore during October 2019.",
+    "district": "Coimbatore",
+    "year": 2019,
+    "month": 10,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 63,
+    "query": "Forecast the groundwater level in Madurai for the northeast monsoon of 2021.",
+    "district": "Madurai",
+    "year": 2021,
+    "month": 11,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 64,
+    "query": "What is the expected groundwater level in Chennai in December 2022?",
+    "district": "Chennai",
+    "year": 2022,
+    "month": 12,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 65,
+    "query": "Project the groundwater level for Erode in 2023.",
+    "district": "Erode",
+    "year": 2023,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 66,
+    "query": "Predict the groundwater level in Tirunelveli for 2024.",
+    "district": "Tirunelveli",
+    "year": 2024,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 67,
+    "query": "Estimate the groundwater level in Krishnagiri during June 2026.",
+    "district": "Krishnagiri",
+    "year": 2026,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 68,
+    "query": "Forecast the groundwater level in Namakkal for the southwest monsoon of 2027.",
+    "district": "Namakkal",
+    "year": 2027,
+    "month": 7,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 69,
+    "query": "What is the expected groundwater level in Theni in August 2028?",
+    "district": "Theni",
+    "year": 2028,
+    "month": 8,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 70,
+    "query": "Project the groundwater level for Tiruppur in 2030.",
+    "district": "Tiruppur",
+    "year": 2030,
+    "month": 10,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 71,
+    "query": "Predict the groundwater level in Vellore for 2016.",
+    "district": "Vellore",
+    "year": 2016,
+    "month": 11,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 72,
+    "query": "Estimate the groundwater level in Cuddalore during December 2019.",
+    "district": "Cuddalore",
+    "year": 2019,
+    "month": 12,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 73,
+    "query": "Forecast the groundwater level in Ariyalur for the post-monsoon (winter) of 2021.",
+    "district": "Ariyalur",
+    "year": 2021,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 74,
+    "query": "What is the expected groundwater level in Sivagangai in April 2022?",
+    "district": "Sivagangai",
+    "year": 2022,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 75,
+    "query": "Project the groundwater level for Virudhunagar in 2023.",
+    "district": "Virudhunagar",
+    "year": 2023,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 76,
+    "query": "Predict the groundwater level in Ramanathapuram for 2024.",
+    "district": "Ramanathapuram",
+    "year": 2024,
+    "month": 7,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 77,
+    "query": "Estimate the groundwater level in Thanjavur during August 2026.",
+    "district": "Thanjavur",
+    "year": 2026,
+    "month": 8,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 78,
+    "query": "Forecast the groundwater level in Dindigul for the northeast monsoon of 2027.",
+    "district": "Dindigul",
+    "year": 2027,
+    "month": 10,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 79,
+    "query": "What is the expected groundwater level in Karur in November 2028?",
+    "district": "Karur",
+    "year": 2028,
+    "month": 11,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 80,
+    "query": "Project the groundwater level for Dharmapuri in 2030.",
+    "district": "Dharmapuri",
+    "year": 2030,
+    "month": 12,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 81,
+    "query": "Predict the groundwater level in Villupuram for 2016.",
+    "district": "Villupuram",
+    "year": 2016,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 82,
+    "query": "Estimate the groundwater level in Kanchipuram during April 2019.",
+    "district": "Kanchipuram",
+    "year": 2019,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 83,
+    "query": "Forecast the groundwater level in Tiruvannamalai for the southwest monsoon of 2021.",
+    "district": "Tiruvannamalai",
+    "year": 2021,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 84,
+    "query": "What is the expected groundwater level in Pudukkottai in July 2022?",
+    "district": "Pudukkottai",
+    "year": 2022,
+    "month": 7,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 85,
+    "query": "Project the groundwater level for Nagapattinam in 2023.",
+    "district": "Nagapattinam",
+    "year": 2023,
+    "month": 8,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 86,
+    "query": "Predict the groundwater level in Thoothukudi for 2024.",
+    "district": "Thoothukudi",
+    "year": 2024,
+    "month": 10,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 87,
+    "query": "Estimate the groundwater level in Kanniyakumari during November 2026.",
+    "district": "Kanniyakumari",
+    "year": 2026,
+    "month": 11,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 88,
+    "query": "Forecast the groundwater level in Tenkasi for the northeast monsoon of 2027.",
+    "district": "Tenkasi",
+    "year": 2027,
+    "month": 12,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 89,
+    "query": "What is the expected groundwater level in Perambalur in January 2028?",
+    "district": "Perambalur",
+    "year": 2028,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 90,
+    "query": "Project the groundwater level for Ranipet in 2030.",
+    "district": "Ranipet",
+    "year": 2030,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 91,
+    "query": "Predict the groundwater level in Salem for 2016.",
+    "district": "Salem",
+    "year": 2016,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 92,
+    "query": "Estimate the groundwater level in Coimbatore during July 2019.",
+    "district": "Coimbatore",
+    "year": 2019,
+    "month": 7,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 93,
+    "query": "Forecast the groundwater level in Madurai for the southwest monsoon of 2021.",
+    "district": "Madurai",
+    "year": 2021,
+    "month": 8,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 94,
+    "query": "What is the expected groundwater level in Chennai in October 2022?",
+    "district": "Chennai",
+    "year": 2022,
+    "month": 10,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 95,
+    "query": "Project the groundwater level for Erode in 2023.",
+    "district": "Erode",
+    "year": 2023,
+    "month": 11,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 96,
+    "query": "Predict the groundwater level in Tirunelveli for 2024.",
+    "district": "Tirunelveli",
+    "year": 2024,
+    "month": 12,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 97,
+    "query": "Estimate the groundwater level in Krishnagiri during January 2026.",
+    "district": "Krishnagiri",
+    "year": 2026,
+    "month": 1,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 98,
+    "query": "Forecast the groundwater level in Namakkal for the pre-monsoon (summer) of 2027.",
+    "district": "Namakkal",
+    "year": 2027,
+    "month": 4,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 99,
+    "query": "What is the expected groundwater level in Theni in June 2028?",
+    "district": "Theni",
+    "year": 2028,
+    "month": 6,
+    "target": "groundwater_level_m"
+  },
+  {
+    "id": 100,
+    "query": "Project the groundwater level for Tiruppur in 2030.",
+    "district": "Tiruppur",
+    "year": 2030,
+    "month": 7,
+    "target": "groundwater_level_m"
+  }
+]
