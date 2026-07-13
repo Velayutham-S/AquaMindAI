@@ -1,0 +1,555 @@
+[
+  {
+    "id": 1,
+    "category": "data_query",
+    "query": "What is the groundwater level in Salem?"
+  },
+  {
+    "id": 2,
+    "category": "data_query",
+    "query": "Show the groundwater level in Coimbatore."
+  },
+  {
+    "id": 3,
+    "category": "data_query",
+    "query": "What is the average rainfall in Madurai?"
+  },
+  {
+    "id": 4,
+    "category": "data_query",
+    "query": "How many over-exploited firkas are there in Tamil Nadu?"
+  },
+  {
+    "id": 5,
+    "category": "data_query",
+    "query": "What is the river water level at the Kamuthi Bridge station?"
+  },
+  {
+    "id": 6,
+    "category": "data_query",
+    "query": "List the districts with the highest groundwater recharge."
+  },
+  {
+    "id": 7,
+    "category": "data_query",
+    "query": "What is the total annual groundwater recharge for Ariyalur?"
+  },
+  {
+    "id": 8,
+    "category": "data_query",
+    "query": "Show the rainfall recorded in Coimbatore in 2020."
+  },
+  {
+    "id": 9,
+    "category": "data_query",
+    "query": "What is the stage of groundwater extraction in Chennai?"
+  },
+  {
+    "id": 10,
+    "category": "data_query",
+    "query": "What is the net annual groundwater availability in Thanjavur?"
+  },
+  {
+    "id": 11,
+    "category": "data_query",
+    "query": "Show groundwater level observations for Cuddalore in 2019."
+  },
+  {
+    "id": 12,
+    "category": "data_query",
+    "query": "Which district has the lowest recorded groundwater level?"
+  },
+  {
+    "id": 13,
+    "category": "data_query",
+    "query": "What is the maximum rainfall recorded in Tirunelveli?"
+  },
+  {
+    "id": 14,
+    "category": "data_query",
+    "query": "How many groundwater monitoring stations are there in Vellore?"
+  },
+  {
+    "id": 15,
+    "category": "data_query",
+    "query": "What is the average groundwater level in Erode?"
+  },
+  {
+    "id": 16,
+    "category": "data_query",
+    "query": "Show the river discharge records for Rajapalayam."
+  },
+  {
+    "id": 17,
+    "category": "data_query",
+    "query": "What is the total rainfall for Dindigul in 2022?"
+  },
+  {
+    "id": 18,
+    "category": "data_query",
+    "query": "List all over-exploited assessment units in Salem district."
+  },
+  {
+    "id": 19,
+    "category": "data_query",
+    "query": "What is the groundwater extraction percentage for Karur?"
+  },
+  {
+    "id": 20,
+    "category": "data_query",
+    "query": "Show the latest groundwater level readings in Namakkal."
+  },
+  {
+    "id": 21,
+    "category": "data_query",
+    "query": "What is the recharge from rainfall for Krishnagiri?"
+  },
+  {
+    "id": 22,
+    "category": "data_query",
+    "query": "Compare the groundwater level in Salem and Coimbatore."
+  },
+  {
+    "id": 23,
+    "category": "data_query",
+    "query": "What is the total geographical area of the Ariyalur assessment unit?"
+  },
+  {
+    "id": 24,
+    "category": "data_query",
+    "query": "Show groundwater levels between 2015 and 2020 in Madurai."
+  },
+  {
+    "id": 25,
+    "category": "data_query",
+    "query": "What is the minimum groundwater level recorded in Theni?"
+  },
+  {
+    "id": 26,
+    "category": "data_query",
+    "query": "How many firkas are categorized as safe in Virudhunagar?"
+  },
+  {
+    "id": 27,
+    "category": "data_query",
+    "query": "What is the annual extractable groundwater resource for Chengalpattu?"
+  },
+  {
+    "id": 28,
+    "category": "data_query",
+    "query": "Show the river water level trend for Ramanathapuram."
+  },
+  {
+    "id": 29,
+    "category": "data_query",
+    "query": "What is the rainfall recharge for Tiruppur?"
+  },
+  {
+    "id": 30,
+    "category": "data_query",
+    "query": "List the districts ordered by groundwater extraction stage."
+  },
+  {
+    "id": 31,
+    "category": "data_query",
+    "query": "What is the groundwater level in Pudukkottai in 2023?"
+  },
+  {
+    "id": 32,
+    "category": "data_query",
+    "query": "Show the number of observation wells monitored in Dharmapuri."
+  },
+  {
+    "id": 33,
+    "category": "data_query",
+    "query": "What is the average river water level in Ramanathapuram in 2022?"
+  },
+  {
+    "id": 34,
+    "category": "data_query",
+    "query": "Which assessment units are categorized as critical?"
+  },
+  {
+    "id": 35,
+    "category": "data_query",
+    "query": "What is the recorded groundwater level in Tiruvannamalai?"
+  },
+  {
+    "id": 36,
+    "category": "knowledge_query",
+    "query": "What is groundwater?"
+  },
+  {
+    "id": 37,
+    "category": "knowledge_query",
+    "query": "Explain what an aquifer is."
+  },
+  {
+    "id": 38,
+    "category": "knowledge_query",
+    "query": "What is artificial recharge?"
+  },
+  {
+    "id": 39,
+    "category": "knowledge_query",
+    "query": "Explain groundwater recharge."
+  },
+  {
+    "id": 40,
+    "category": "knowledge_query",
+    "query": "What is groundwater contamination?"
+  },
+  {
+    "id": 41,
+    "category": "knowledge_query",
+    "query": "Explain the GEC-2015 methodology."
+  },
+  {
+    "id": 42,
+    "category": "knowledge_query",
+    "query": "What are the CGWB guidelines for rainwater harvesting?"
+  },
+  {
+    "id": 43,
+    "category": "knowledge_query",
+    "query": "What does over-exploited mean in groundwater assessment?"
+  },
+  {
+    "id": 44,
+    "category": "knowledge_query",
+    "query": "Explain hydrogeology."
+  },
+  {
+    "id": 45,
+    "category": "knowledge_query",
+    "query": "What is a percolation tank?"
+  },
+  {
+    "id": 46,
+    "category": "knowledge_query",
+    "query": "Explain how rainfall contributes to groundwater recharge."
+  },
+  {
+    "id": 47,
+    "category": "knowledge_query",
+    "query": "What is aquifer mapping?"
+  },
+  {
+    "id": 48,
+    "category": "knowledge_query",
+    "query": "Explain the parameters used to assess groundwater quality."
+  },
+  {
+    "id": 49,
+    "category": "knowledge_query",
+    "query": "What is a check dam?"
+  },
+  {
+    "id": 50,
+    "category": "knowledge_query",
+    "query": "Explain sustainable groundwater management."
+  },
+  {
+    "id": 51,
+    "category": "knowledge_query",
+    "query": "What regulations govern groundwater extraction?"
+  },
+  {
+    "id": 52,
+    "category": "knowledge_query",
+    "query": "What is the water table?"
+  },
+  {
+    "id": 53,
+    "category": "knowledge_query",
+    "query": "Explain how rivers recharge aquifers."
+  },
+  {
+    "id": 54,
+    "category": "knowledge_query",
+    "query": "What is specific yield?"
+  },
+  {
+    "id": 55,
+    "category": "knowledge_query",
+    "query": "Explain the categorization of groundwater assessment units."
+  },
+  {
+    "id": 56,
+    "category": "knowledge_query",
+    "query": "What are the main causes of groundwater depletion?"
+  },
+  {
+    "id": 57,
+    "category": "knowledge_query",
+    "query": "Explain salinity ingress in coastal aquifers."
+  },
+  {
+    "id": 58,
+    "category": "knowledge_query",
+    "query": "What is a confined aquifer?"
+  },
+  {
+    "id": 59,
+    "category": "knowledge_query",
+    "query": "Explain the recharge structures used in Tamil Nadu."
+  },
+  {
+    "id": 60,
+    "category": "knowledge_query",
+    "query": "What is the National Aquifer Mapping programme?"
+  },
+  {
+    "id": 61,
+    "category": "knowledge_query",
+    "query": "Explain how groundwater is monitored using observation wells."
+  },
+  {
+    "id": 62,
+    "category": "knowledge_query",
+    "query": "What is fluoride contamination in groundwater?"
+  },
+  {
+    "id": 63,
+    "category": "knowledge_query",
+    "query": "Explain the difference between phreatic and confined aquifers."
+  },
+  {
+    "id": 64,
+    "category": "knowledge_query",
+    "query": "What are the recommended groundwater conservation measures?"
+  },
+  {
+    "id": 65,
+    "category": "knowledge_query",
+    "query": "Explain how groundwater level is measured."
+  },
+  {
+    "id": 66,
+    "category": "knowledge_query",
+    "query": "Who are you?"
+  },
+  {
+    "id": 67,
+    "category": "knowledge_query",
+    "query": "What is AquaMind AI?"
+  },
+  {
+    "id": 68,
+    "category": "knowledge_query",
+    "query": "What can AquaMind AI do?"
+  },
+  {
+    "id": 69,
+    "category": "knowledge_query",
+    "query": "How does AquaMind AI work?"
+  },
+  {
+    "id": 70,
+    "category": "knowledge_query",
+    "query": "Explain the role of the CGWB in groundwater management."
+  },
+  {
+    "id": 71,
+    "category": "prediction_query",
+    "query": "Predict the groundwater level in Salem for 2030."
+  },
+  {
+    "id": 72,
+    "category": "prediction_query",
+    "query": "Forecast the groundwater level in Coimbatore next year."
+  },
+  {
+    "id": 73,
+    "category": "prediction_query",
+    "query": "Estimate the groundwater level in Madurai during June 2028."
+  },
+  {
+    "id": 74,
+    "category": "prediction_query",
+    "query": "What will the groundwater level be in Erode in 2027?"
+  },
+  {
+    "id": 75,
+    "category": "prediction_query",
+    "query": "Predict the groundwater level for Tirunelveli in 2029."
+  },
+  {
+    "id": 76,
+    "category": "prediction_query",
+    "query": "Forecast the groundwater level in Krishnagiri for 2031."
+  },
+  {
+    "id": 77,
+    "category": "prediction_query",
+    "query": "Estimate the groundwater level in Namakkal in December 2030."
+  },
+  {
+    "id": 78,
+    "category": "prediction_query",
+    "query": "Predict the groundwater level in Chennai for 2032."
+  },
+  {
+    "id": 79,
+    "category": "prediction_query",
+    "query": "What is the expected groundwater level in Theni in 2028?"
+  },
+  {
+    "id": 80,
+    "category": "prediction_query",
+    "query": "Forecast the groundwater level in Vellore for next summer."
+  },
+  {
+    "id": 81,
+    "category": "prediction_query",
+    "query": "Predict the groundwater level in Cuddalore for October 2030."
+  },
+  {
+    "id": 82,
+    "category": "prediction_query",
+    "query": "Estimate the future groundwater level in Dindigul for 2033."
+  },
+  {
+    "id": 83,
+    "category": "prediction_query",
+    "query": "Predict the groundwater level in Thanjavur in 2029."
+  },
+  {
+    "id": 84,
+    "category": "prediction_query",
+    "query": "Forecast the groundwater level for Karur in 2030."
+  },
+  {
+    "id": 85,
+    "category": "prediction_query",
+    "query": "What will the groundwater level be in Ariyalur by 2035?"
+  },
+  {
+    "id": 86,
+    "category": "mixed_query",
+    "query": "Predict the groundwater level in Salem for 2030 and explain why it may decline."
+  },
+  {
+    "id": 87,
+    "category": "mixed_query",
+    "query": "What is the current groundwater level in Coimbatore and explain why it is low?"
+  },
+  {
+    "id": 88,
+    "category": "mixed_query",
+    "query": "Predict the groundwater level in Madurai for 2030 and compare it with the current level."
+  },
+  {
+    "id": 89,
+    "category": "mixed_query",
+    "query": "Show the groundwater level in Erode and explain the causes of depletion."
+  },
+  {
+    "id": 90,
+    "category": "mixed_query",
+    "query": "Compare the current groundwater level in Salem with the predicted level for 2030."
+  },
+  {
+    "id": 91,
+    "category": "mixed_query",
+    "query": "Predict the groundwater level in Chennai for 2031 and explain recharge methods."
+  },
+  {
+    "id": 92,
+    "category": "mixed_query",
+    "query": "What is the rainfall in Tirunelveli and how does it affect groundwater recharge?"
+  },
+  {
+    "id": 93,
+    "category": "mixed_query",
+    "query": "Predict the groundwater level in Namakkal for 2030, compare it with the current level, and explain recharge measures."
+  },
+  {
+    "id": 94,
+    "category": "mixed_query",
+    "query": "Show the groundwater extraction stage in Karur and explain what over-exploitation means."
+  },
+  {
+    "id": 95,
+    "category": "mixed_query",
+    "query": "What is the current groundwater level in Theni and forecast the level for 2029?"
+  },
+  {
+    "id": 96,
+    "category": "follow_up",
+    "query": "What about Coimbatore?",
+    "memory": {
+      "current_topic": "groundwater level",
+      "current_data_topic": "groundwater level",
+      "current_district": "Salem",
+      "current_active_agent": "data_agent",
+      "current_intent": "data_query"
+    },
+    "messages": [
+      [
+        "user",
+        "What is the groundwater level in Salem?"
+      ],
+      [
+        "assistant",
+        "The groundwater level data for Salem was retrieved."
+      ]
+    ]
+  },
+  {
+    "id": 97,
+    "category": "follow_up",
+    "query": "How about 2035?",
+    "memory": {
+      "current_topic": "prediction",
+      "current_prediction_target": "groundwater_level_m",
+      "current_district": "Salem",
+      "current_year": 2030,
+      "current_active_agent": "prediction_agent",
+      "current_intent": "prediction_query"
+    },
+    "messages": [
+      [
+        "user",
+        "Predict the groundwater level in Salem for 2030."
+      ],
+      [
+        "assistant",
+        "The predicted groundwater level for Salem in 2030 was generated."
+      ]
+    ]
+  },
+  {
+    "id": 98,
+    "category": "follow_up",
+    "query": "How confident is that prediction?",
+    "memory": {
+      "current_topic": "prediction",
+      "current_prediction_target": "groundwater_level_m",
+      "current_district": "Coimbatore",
+      "current_year": 2030,
+      "current_active_agent": "prediction_agent",
+      "current_intent": "prediction_query"
+    },
+    "messages": [
+      [
+        "user",
+        "Predict the groundwater level in Coimbatore for 2030."
+      ],
+      [
+        "assistant",
+        "The predicted groundwater level for Coimbatore in 2030 was generated."
+      ]
+    ]
+  },
+  {
+    "id": 99,
+    "category": "clarification",
+    "query": "Predict the groundwater level."
+  },
+  {
+    "id": 100,
+    "category": "clarification",
+    "query": "What is the groundwater level?"
+  }
+]

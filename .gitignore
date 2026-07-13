@@ -49,3 +49,8 @@ datasets/
 embeddings/
 *.faiss
 *.index
+# Generated supervisor reports (regenerate from tests; never commit)
+plannerllmresult.txt
+conversation_memory_output.txt
+orchestrator_result.txt
+production_pipeline_result.txt
