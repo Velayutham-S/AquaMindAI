@@ -1,0 +1,31 @@
+{
+  "name": "aquamind-ai-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Production frontend for AquaMind AI - groundwater intelligence chat interface for Tamil Nadu.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.1",
+    "react-router-dom": "^6.26.2",
+    "rehype-highlight": "^7.0.0",
+    "remark-gfm": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.2",
+    "highlight.js": "^11.10.0",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8"
+  }
+}
