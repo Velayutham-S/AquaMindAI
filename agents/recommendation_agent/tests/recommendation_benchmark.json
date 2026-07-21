@@ -1,0 +1,251 @@
+[
+  {
+    "id": 1,
+    "category": "DATA_REQUIRED",
+    "description": "Over-exploited district (high extraction stage) -> recommendations expected",
+    "expected_recommendation_required": true,
+    "aggregated_response": {
+      "status": "SUCCESS",
+      "executed_agents": ["data_agent"],
+      "failed_agents": [],
+      "responses": [
+        {
+          "agent_name": "data_agent",
+          "status": "SUCCESS",
+          "query_type": "data",
+          "sql": "SELECT district, stage_of_ground_water_extraction_percent_total, categorization_of_assessment_unit_total FROM district WHERE district = 'CHENNAI' ORDER BY assessment_year DESC LIMIT 1",
+          "row_count": 1,
+          "evidence": [
+            {"district": "CHENNAI", "assessment_year": 2023, "stage_of_ground_water_extraction_percent_total": 121.72, "categorization_of_assessment_unit_total": "over_exploited"}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "category": "DATA_NOT_REQUIRED",
+    "description": "Plain historical groundwater level readings -> no action needed",
+    "expected_recommendation_required": false,
+    "aggregated_response": {
+      "status": "SUCCESS",
+      "executed_agents": ["data_agent"],
+      "failed_agents": [],
+      "responses": [
+        {
+          "agent_name": "data_agent",
+          "status": "SUCCESS",
+          "query_type": "data",
+          "sql": "SELECT district, observation_time, groundwater_level_m FROM groundwater_level WHERE district = 'Salem' LIMIT 3",
+          "row_count": 3,
+          "evidence": [
+            {"district": "Salem", "observation_time": "01-01-1982 00:00", "groundwater_level_m": 5.17},
+            {"district": "Salem", "observation_time": "01-07-1982 00:00", "groundwater_level_m": 8.4},
+            {"district": "Salem", "observation_time": "01-08-1982 00:00", "groundwater_level_m": 9.05}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "category": "KNOWLEDGE_REQUIRED",
+    "description": "Knowledge on groundwater depletion + recharge need -> actionable guidance helps",
+    "expected_recommendation_required": true,
+    "aggregated_response": {
+      "status": "SUCCESS",
+      "executed_agents": ["knowledge_agent"],
+      "failed_agents": [],
+      "responses": [
+        {
+          "agent_name": "knowledge_agent",
+          "status": "SUCCESS",
+          "query_type": "knowledge",
+          "total_evidence": 2,
+          "retrieval_method": "semantic_search",
+          "evidence": [
+            {"chunk_id": "c1", "document": "Rainwater_Harvesting_FAQ.pdf", "similarity_score": 0.72, "content": "Excessive continued exploitation of ground water has resulted in declining water levels and depleted resources in large areas. Artificial recharge to ground water has become an important management strategy to augment the natural supply."},
+            {"chunk_id": "c2", "document": "Rainwater_Harvesting_FAQ.pdf", "similarity_score": 0.70, "content": "Recharge structures such as check dams, percolation ponds and recharge wells make use of surplus surface runoff to augment groundwater aquifers."}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "category": "KNOWLEDGE_NOT_REQUIRED",
+    "description": "Pure definition of an aquifer -> no action needed",
+    "expected_recommendation_required": false,
+    "aggregated_response": {
+      "status": "SUCCESS",
+      "executed_agents": ["knowledge_agent"],
+      "failed_agents": [],
+      "responses": [
+        {
+          "agent_name": "knowledge_agent",
+          "status": "SUCCESS",
+          "query_type": "knowledge",
+          "total_evidence": 1,
+          "retrieval_method": "semantic_search",
+          "evidence": [
+            {"chunk_id": "c9", "document": "Groundwater book_web.pdf", "similarity_score": 0.69, "content": "Groundwater is the water that fills the natural openings present in rocks or sand. These openings are the spaces in sedimentary rocks and in cracks and fractures in solid rock."}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "category": "PREDICTION_REQUIRED",
+    "description": "Forecast indicates deep/deteriorating groundwater level -> recommendations expected",
+    "expected_recommendation_required": true,
+    "aggregated_response": {
+      "status": "SUCCESS",
+      "executed_agents": ["prediction_agent"],
+      "failed_agents": [],
+      "responses": [
+        {
+          "agent_name": "prediction_agent",
+          "status": "SUCCESS",
+          "query_type": "prediction",
+          "prediction_method": "machine_learning",
+          "model_name": "XGBoost",
+          "prediction": {"district": "Chennai", "prediction_year": 2031, "prediction_month": 1, "target": "groundwater_level_m", "predicted_value": 16.8, "unit": "metres below ground level"}
+        }
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "category": "PREDICTION_NOT_REQUIRED",
+    "description": "Forecast shows a shallow/stable groundwater level -> no concern, no action",
+    "expected_recommendation_required": false,
+    "aggregated_response": {
+      "status": "SUCCESS",
+      "executed_agents": ["prediction_agent"],
+      "failed_agents": [],
+      "responses": [
+        {
+          "agent_name": "prediction_agent",
+          "status": "SUCCESS",
+          "query_type": "prediction",
+          "prediction_method": "machine_learning",
+          "model_name": "XGBoost",
+          "prediction": {"district": "Thanjavur", "prediction_year": 2029, "prediction_month": 1, "target": "groundwater_level_m", "predicted_value": 2.4, "unit": "metres below ground level"}
+        }
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "category": "MIXED_REQUIRED",
+    "description": "Over-exploited data + depletion knowledge -> recommendations expected",
+    "expected_recommendation_required": true,
+    "aggregated_response": {
+      "status": "SUCCESS",
+      "executed_agents": ["data_agent", "knowledge_agent"],
+      "failed_agents": [],
+      "responses": [
+        {
+          "agent_name": "data_agent",
+          "status": "SUCCESS",
+          "query_type": "data",
+          "sql": "SELECT district, stage_of_ground_water_extraction_percent_total, categorization_of_assessment_unit_total FROM district WHERE district = 'ERODE' ORDER BY assessment_year DESC LIMIT 1",
+          "row_count": 1,
+          "evidence": [
+            {"district": "ERODE", "assessment_year": 2023, "stage_of_ground_water_extraction_percent_total": 108.3, "categorization_of_assessment_unit_total": "over_exploited"}
+          ]
+        },
+        {
+          "agent_name": "knowledge_agent",
+          "status": "SUCCESS",
+          "query_type": "knowledge",
+          "total_evidence": 1,
+          "retrieval_method": "semantic_search",
+          "evidence": [
+            {"chunk_id": "c3", "document": "Rainwater_Harvesting_FAQ.pdf", "similarity_score": 0.71, "content": "In order to augment the natural supply of ground water, artificial recharge and rainwater harvesting have become frontal management strategies in over-exploited and critical blocks."}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "category": "MIXED_NOT_REQUIRED",
+    "description": "Safe level data + concept definition -> no action needed",
+    "expected_recommendation_required": false,
+    "aggregated_response": {
+      "status": "SUCCESS",
+      "executed_agents": ["data_agent", "knowledge_agent"],
+      "failed_agents": [],
+      "responses": [
+        {
+          "agent_name": "data_agent",
+          "status": "SUCCESS",
+          "query_type": "data",
+          "sql": "SELECT district, categorization_of_assessment_unit_total FROM district WHERE district = 'THANJAVUR' ORDER BY assessment_year DESC LIMIT 1",
+          "row_count": 1,
+          "evidence": [
+            {"district": "THANJAVUR", "assessment_year": 2023, "categorization_of_assessment_unit_total": "safe"}
+          ]
+        },
+        {
+          "agent_name": "knowledge_agent",
+          "status": "SUCCESS",
+          "query_type": "knowledge",
+          "total_evidence": 1,
+          "retrieval_method": "semantic_search",
+          "evidence": [
+            {"chunk_id": "c10", "document": "Groundwater book_web.pdf", "similarity_score": 0.66, "content": "The water table is the upper surface of the zone of saturation, below which the pores and fractures of the ground are saturated with water."}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": 9,
+    "category": "OVER_EXPLOITED",
+    "description": "State-wide over-exploited firka count -> recommendations expected",
+    "expected_recommendation_required": true,
+    "aggregated_response": {
+      "status": "SUCCESS",
+      "executed_agents": ["data_agent"],
+      "failed_agents": [],
+      "responses": [
+        {
+          "agent_name": "data_agent",
+          "status": "SUCCESS",
+          "query_type": "data",
+          "sql": "SELECT COUNT(DISTINCT firka) FROM firka WHERE categorization_of_assessment_unit_total = 'over_exploited'",
+          "row_count": 1,
+          "evidence": [
+            {"over_exploited_firka_count": 733}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": 10,
+    "category": "HEALTHY",
+    "description": "Healthy/safe groundwater condition -> no action needed",
+    "expected_recommendation_required": false,
+    "aggregated_response": {
+      "status": "SUCCESS",
+      "executed_agents": ["data_agent"],
+      "failed_agents": [],
+      "responses": [
+        {
+          "agent_name": "data_agent",
+          "status": "SUCCESS",
+          "query_type": "data",
+          "sql": "SELECT district, stage_of_ground_water_extraction_percent_total, categorization_of_assessment_unit_total FROM district WHERE district = 'ARIYALUR' ORDER BY assessment_year DESC LIMIT 1",
+          "row_count": 1,
+          "evidence": [
+            {"district": "ARIYALUR", "assessment_year": 2023, "stage_of_ground_water_extraction_percent_total": 58.6, "categorization_of_assessment_unit_total": "safe"}
+          ]
+        }
+      ]
+    }
+  }
+]
