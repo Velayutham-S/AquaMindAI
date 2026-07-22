@@ -49,9 +49,9 @@ ENV_PATH: Path = PROJECT_ROOT / ".env"
 # Configuration
 # --------------------------------------------------------------------------- #
 
-MODEL_NAME: str = "deepseek-v4-flash-free"
-API_KEY_ENV_VAR: str = "OPENCODE_API_KEY"
-OPENCODE_BASE_URL: str = "https://opencode.ai/zen/v1"
+MODEL_NAME: str = "gemini-3.5-flash"
+API_KEY_ENV_VAR: str = "GEMINI_SQL_API_KEY"
+GEMINI_BASE_URL: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
 #: Requests-per-minute cap for LLM calls. Configurable via env; not hardcoded
 #: to a provider-specific value. Used to space out sequential calls.
@@ -258,7 +258,7 @@ class SqlGenerator:
         self._model_name = model_name
         # Disable the SDK's own retries; retry/backoff is handled below.
         self._client = OpenAI(
-            base_url=OPENCODE_BASE_URL,
+            base_url=GEMINI_BASE_URL,
             api_key=key,
             timeout=request_timeout,
             max_retries=0,
