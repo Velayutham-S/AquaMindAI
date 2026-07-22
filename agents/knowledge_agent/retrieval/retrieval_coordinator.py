@@ -28,7 +28,7 @@ for _sub in ("", "embedding", "preprocessing", "chunking", "ingestion", "retriev
     if str(_path) not in sys.path:
         sys.path.insert(0, str(_path))
 
-import config as kb_config  # noqa: E402
+import knowledge_config as kb_config  # noqa: E402  (unique module name; avoids sys.modules 'config' collision)
 from embedder import Embedder  # noqa: E402  (reused indexing embedder)
 from text_cleaner import TextCleaner  # noqa: E402  (reused)
 from text_chunker import TextChunker  # noqa: E402  (reused)

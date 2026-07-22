@@ -37,7 +37,7 @@ for _sub in ("", "ingestion", "preprocessing", "chunking", "embedding", "vector_
     if str(_path) not in sys.path:
         sys.path.insert(0, str(_path))
 
-import config as kb_config  # noqa: E402
+import knowledge_config as kb_config  # noqa: E402  (unique module name; avoids sys.modules 'config' collision)
 from document_ingestor import DocumentIngestor, DiscoveredDocument  # noqa: E402
 from pdf_extractor import extract_pages, PdfExtractionError  # noqa: E402
 from text_cleaner import TextCleaner  # noqa: E402
