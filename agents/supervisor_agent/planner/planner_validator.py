@@ -95,6 +95,10 @@ class PlannerValidator:
         self._check_confidence(confidence, requires_clarification, payload)
         self._check_intent(intent, requires_clarification, agents, payload)
 
+        district = self._parse_optional_str(payload.get("district"), "district", payload)
+        firka = self._parse_optional_str(payload.get("firka"), "firka", payload)
+        target_year = self._parse_optional_year(payload.get("target_year"), payload)
+
         return PlannerDecision(
             intent=intent,
             confidence=confidence,
@@ -103,6 +107,9 @@ class PlannerValidator:
             agents=agents,
             execution_order=execution_order,
             reason=reason.strip(),
+            district=district,
+            firka=firka,
+            target_year=target_year,
         )
 
     # ------------------------------------------------------------------ #
@@ -118,6 +125,37 @@ class PlannerValidator:
             raise PlannerValidationError(
                 f"Invalid '{field}' value {value!r}. Allowed: {allowed}.", payload=payload
             ) from error
+
+    @staticmethod
+    def _parse_optional_str(value: Any, field: str, payload: Any) -> str | None:
+        """Optional structured slot: a non-empty string, or None (null/absent)."""
+        if value is None:
+            return None
+        if not isinstance(value, str):
+            raise PlannerValidationError(
+                f"'{field}' must be a string or null.", payload=payload
+            )
+        cleaned = value.strip()
+        return cleaned or None
+
+    @staticmethod
+    def _parse_optional_year(value: Any, payload: Any) -> int | None:
+        """Optional forecast year: an int, a digit-string, or None (null/absent)."""
+        if value is None:
+            return None
+        if isinstance(value, bool):  # bool is an int subclass; reject explicitly.
+            raise PlannerValidationError("'target_year' must be an integer or null.", payload=payload)
+        if isinstance(value, int):
+            return value
+        if isinstance(value, str):
+            cleaned = value.strip()
+            if not cleaned:
+                return None
+            if cleaned.isdigit():
+                return int(cleaned)
+        raise PlannerValidationError(
+            "'target_year' must be an integer or null.", payload=payload
+        )
 
     @staticmethod
     def _parse_agents(value: Any, field: str, payload: Any) -> tuple[AgentName, ...]:

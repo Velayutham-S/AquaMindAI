@@ -49,9 +49,9 @@ PLANNER_DIR: Path = Path(__file__).resolve().parent
 PROJECT_ROOT: Path = PLANNER_DIR.parents[2]  # planner -> supervisor_agent -> agents -> root
 ENV_PATH: Path = PROJECT_ROOT / ".env"
 
-MODEL_NAME: str = "deepseek-v4-flash-free"
-API_KEY_ENV_VAR: str = "OPENCODE_API_KEY"
-OPENCODE_BASE_URL: str = "https://opencode.ai/zen/v1"
+MODEL_NAME: str = "gemini-3.5-flash"
+API_KEY_ENV_VAR: str = "GEMINI_PLANNER_API_KEY"
+GEMINI_BASE_URL: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
 DEFAULT_REQUESTS_PER_MINUTE: int = 15
 RPM_ENV_VAR: str = "REQUESTS_PER_MINUTE"
@@ -61,7 +61,15 @@ MAX_RETRIES: int = 5
 RETRY_BASE_DELAY_SECONDS: float = 5.0
 RETRY_MAX_DELAY_SECONDS: float = 60.0
 PLANNING_TEMPERATURE: float = 0.0  # deterministic routing
-MAX_OUTPUT_TOKENS: int = 1024
+# gemini-3.5-flash is a THINKING model: its internal reasoning tokens are drawn
+# from the same output-token budget as the reply. With no reasoning_effort set,
+# the model uses a large default thinking budget that can exceed a tight
+# max_tokens, truncating the response (finish_reason="length") BEFORE the JSON
+# is emitted -- yielding brace-free output and "No JSON object found". Routing is
+# a deterministic classification that needs minimal reasoning, so cap thinking to
+# "low" and keep ample budget for the (small) routing JSON.
+PLANNER_REASONING_EFFORT: str = "low"
+MAX_OUTPUT_TOKENS: int = 2048
 
 
 def _resolve_api_key() -> str:
@@ -140,7 +148,7 @@ class Planner:
         key = api_key or _resolve_api_key()
         self._model_name = model_name
         self._client = OpenAI(
-            base_url=OPENCODE_BASE_URL,
+            base_url=GEMINI_BASE_URL,
             api_key=key,
             timeout=request_timeout,
             max_retries=0,  # backoff handled below
@@ -210,8 +218,24 @@ class Planner:
                     messages=[{"role": "user", "content": prompt}],
                     temperature=PLANNING_TEMPERATURE,
                     max_tokens=MAX_OUTPUT_TOKENS,
+                    reasoning_effort=PLANNER_REASONING_EFFORT,
                 )
-                text = completion.choices[0].message.content if completion.choices else None
+                choice = completion.choices[0] if completion.choices else None
+                text = choice.message.content if choice else None
+
+                # Lightweight observability (silent unless DEBUG is enabled). The
+                # finish_reason distinguishes a clean "stop" from a "length"
+                # truncation (over-thinking exhausting the output budget); usage
+                # reveals the prompt/response token split.
+                logger.debug(
+                    "Planner LLM call: model=%s prompt_len=%d finish_reason=%s "
+                    "content_len=%d usage=%s",
+                    self._model_name,
+                    len(prompt),
+                    getattr(choice, "finish_reason", None),
+                    len(text or ""),
+                    getattr(completion, "usage", None),
+                )
                 if not text or not text.strip():
                     # An empty completion is a transient free-tier hiccup; retry it.
                     last_error = PlannerApiError("Planner LLM returned an empty response.")

@@ -1,0 +1,1919 @@
+[
+  {
+    "id": 1,
+    "category": "single_data",
+    "user_query": "What is the groundwater level in Salem?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 2,
+    "category": "single_data",
+    "user_query": "Show the average rainfall in Coimbatore.",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 3,
+    "category": "single_data",
+    "user_query": "What is the groundwater extraction stage in Madurai?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 4,
+    "category": "single_data",
+    "user_query": "How many observation wells are monitored in Chennai?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 5,
+    "category": "single_data",
+    "user_query": "Show the river water level records for Erode.",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 6,
+    "category": "single_data",
+    "user_query": "What is the groundwater level in Tirunelveli?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 7,
+    "category": "single_data",
+    "user_query": "Show the average rainfall in Krishnagiri.",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 8,
+    "category": "single_data",
+    "user_query": "What is the groundwater extraction stage in Namakkal?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 9,
+    "category": "single_data",
+    "user_query": "How many observation wells are monitored in Theni?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 10,
+    "category": "single_data",
+    "user_query": "Show the river water level records for Tiruppur.",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 11,
+    "category": "single_data",
+    "user_query": "What is the groundwater level in Vellore?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 12,
+    "category": "single_data",
+    "user_query": "Show the average rainfall in Cuddalore.",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 13,
+    "category": "single_data",
+    "user_query": "What is the groundwater extraction stage in Ariyalur?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 14,
+    "category": "single_data",
+    "user_query": "How many observation wells are monitored in Sivagangai?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 15,
+    "category": "single_data",
+    "user_query": "Show the river water level records for Virudhunagar.",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Measured structured data requested."
+    }
+  },
+  {
+    "id": 16,
+    "category": "single_knowledge",
+    "user_query": "What is groundwater?",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 17,
+    "category": "single_knowledge",
+    "user_query": "Explain aquifers.",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 18,
+    "category": "single_knowledge",
+    "user_query": "Describe artificial recharge in groundwater management.",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 19,
+    "category": "single_knowledge",
+    "user_query": "What is groundwater recharge?",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 20,
+    "category": "single_knowledge",
+    "user_query": "Explain groundwater contamination.",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 21,
+    "category": "single_knowledge",
+    "user_query": "Describe the GEC-2015 methodology in groundwater management.",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 22,
+    "category": "single_knowledge",
+    "user_query": "What is hydrogeology?",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 23,
+    "category": "single_knowledge",
+    "user_query": "Explain percolation tanks.",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 24,
+    "category": "single_knowledge",
+    "user_query": "Describe aquifer mapping in groundwater management.",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 25,
+    "category": "single_knowledge",
+    "user_query": "What is groundwater quality?",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 26,
+    "category": "single_knowledge",
+    "user_query": "Explain sustainable groundwater management.",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 27,
+    "category": "single_knowledge",
+    "user_query": "Describe over-exploited blocks in groundwater management.",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 28,
+    "category": "single_knowledge",
+    "user_query": "What is rainfall recharge?",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 29,
+    "category": "single_knowledge",
+    "user_query": "Explain check dams.",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 30,
+    "category": "single_knowledge",
+    "user_query": "Describe salinity ingress in groundwater management.",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Document-grounded explanation requested."
+    }
+  },
+  {
+    "id": 31,
+    "category": "single_prediction",
+    "user_query": "Predict the groundwater level in Salem for 2027.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Future groundwater prediction requested."
+    }
+  },
+  {
+    "id": 32,
+    "category": "single_prediction",
+    "user_query": "Predict the groundwater level in Coimbatore for 2028.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Future groundwater prediction requested."
+    }
+  },
+  {
+    "id": 33,
+    "category": "single_prediction",
+    "user_query": "Predict the groundwater level in Madurai for 2029.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Future groundwater prediction requested."
+    }
+  },
+  {
+    "id": 34,
+    "category": "single_prediction",
+    "user_query": "Predict the groundwater level in Chennai for 2030.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Future groundwater prediction requested."
+    }
+  },
+  {
+    "id": 35,
+    "category": "single_prediction",
+    "user_query": "Predict the groundwater level in Erode for 2031.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Future groundwater prediction requested."
+    }
+  },
+  {
+    "id": 36,
+    "category": "single_prediction",
+    "user_query": "Predict the groundwater level in Tirunelveli for 2032.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Future groundwater prediction requested."
+    }
+  },
+  {
+    "id": 37,
+    "category": "single_prediction",
+    "user_query": "Predict the groundwater level in Krishnagiri for 2033.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Future groundwater prediction requested."
+    }
+  },
+  {
+    "id": 38,
+    "category": "single_prediction",
+    "user_query": "Predict the groundwater level in Namakkal for 2035.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Future groundwater prediction requested."
+    }
+  },
+  {
+    "id": 39,
+    "category": "single_prediction",
+    "user_query": "Predict the groundwater level in Theni for 2027.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Future groundwater prediction requested."
+    }
+  },
+  {
+    "id": 40,
+    "category": "single_prediction",
+    "user_query": "Predict the groundwater level in Tiruppur for 2028.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Future groundwater prediction requested."
+    }
+  },
+  {
+    "id": 41,
+    "category": "data_knowledge",
+    "user_query": "What is the current groundwater level in Salem and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation."
+    }
+  },
+  {
+    "id": 42,
+    "category": "data_knowledge",
+    "user_query": "What is the current groundwater level in Coimbatore and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation."
+    }
+  },
+  {
+    "id": 43,
+    "category": "data_knowledge",
+    "user_query": "What is the current groundwater level in Madurai and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation."
+    }
+  },
+  {
+    "id": 44,
+    "category": "data_knowledge",
+    "user_query": "What is the current groundwater level in Chennai and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation."
+    }
+  },
+  {
+    "id": 45,
+    "category": "data_knowledge",
+    "user_query": "What is the current groundwater level in Erode and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation."
+    }
+  },
+  {
+    "id": 46,
+    "category": "data_knowledge",
+    "user_query": "What is the current groundwater level in Tirunelveli and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation."
+    }
+  },
+  {
+    "id": 47,
+    "category": "data_knowledge",
+    "user_query": "What is the current groundwater level in Krishnagiri and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation."
+    }
+  },
+  {
+    "id": 48,
+    "category": "data_knowledge",
+    "user_query": "What is the current groundwater level in Namakkal and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation."
+    }
+  },
+  {
+    "id": 49,
+    "category": "data_knowledge",
+    "user_query": "What is the current groundwater level in Theni and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation."
+    }
+  },
+  {
+    "id": 50,
+    "category": "data_knowledge",
+    "user_query": "What is the current groundwater level in Tiruppur and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation."
+    }
+  },
+  {
+    "id": 51,
+    "category": "data_knowledge",
+    "user_query": "What is the current groundwater level in Vellore and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation."
+    }
+  },
+  {
+    "id": 52,
+    "category": "data_knowledge",
+    "user_query": "What is the current groundwater level in Cuddalore and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation."
+    }
+  },
+  {
+    "id": 53,
+    "category": "prediction_knowledge",
+    "user_query": "Predict the groundwater level in Salem for 2027 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation."
+    }
+  },
+  {
+    "id": 54,
+    "category": "prediction_knowledge",
+    "user_query": "Predict the groundwater level in Coimbatore for 2028 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation."
+    }
+  },
+  {
+    "id": 55,
+    "category": "prediction_knowledge",
+    "user_query": "Predict the groundwater level in Madurai for 2029 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation."
+    }
+  },
+  {
+    "id": 56,
+    "category": "prediction_knowledge",
+    "user_query": "Predict the groundwater level in Chennai for 2030 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation."
+    }
+  },
+  {
+    "id": 57,
+    "category": "prediction_knowledge",
+    "user_query": "Predict the groundwater level in Erode for 2031 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation."
+    }
+  },
+  {
+    "id": 58,
+    "category": "prediction_knowledge",
+    "user_query": "Predict the groundwater level in Tirunelveli for 2032 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation."
+    }
+  },
+  {
+    "id": 59,
+    "category": "prediction_knowledge",
+    "user_query": "Predict the groundwater level in Krishnagiri for 2033 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation."
+    }
+  },
+  {
+    "id": 60,
+    "category": "prediction_knowledge",
+    "user_query": "Predict the groundwater level in Namakkal for 2035 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation."
+    }
+  },
+  {
+    "id": 61,
+    "category": "prediction_knowledge",
+    "user_query": "Predict the groundwater level in Theni for 2027 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation."
+    }
+  },
+  {
+    "id": 62,
+    "category": "prediction_knowledge",
+    "user_query": "Predict the groundwater level in Tiruppur for 2028 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation."
+    }
+  },
+  {
+    "id": 63,
+    "category": "prediction_knowledge",
+    "user_query": "Predict the groundwater level in Vellore for 2029 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation."
+    }
+  },
+  {
+    "id": 64,
+    "category": "prediction_knowledge",
+    "user_query": "Predict the groundwater level in Cuddalore for 2030 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation."
+    }
+  },
+  {
+    "id": 65,
+    "category": "data_prediction",
+    "user_query": "Compare the current groundwater level in Salem with the predicted level for 2027.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "reason": "Measured baseline plus forecast comparison."
+    }
+  },
+  {
+    "id": 66,
+    "category": "data_prediction",
+    "user_query": "Compare the current groundwater level in Coimbatore with the predicted level for 2028.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "reason": "Measured baseline plus forecast comparison."
+    }
+  },
+  {
+    "id": 67,
+    "category": "data_prediction",
+    "user_query": "Compare the current groundwater level in Madurai with the predicted level for 2029.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "reason": "Measured baseline plus forecast comparison."
+    }
+  },
+  {
+    "id": 68,
+    "category": "data_prediction",
+    "user_query": "Compare the current groundwater level in Chennai with the predicted level for 2030.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "reason": "Measured baseline plus forecast comparison."
+    }
+  },
+  {
+    "id": 69,
+    "category": "data_prediction",
+    "user_query": "Compare the current groundwater level in Erode with the predicted level for 2031.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "reason": "Measured baseline plus forecast comparison."
+    }
+  },
+  {
+    "id": 70,
+    "category": "data_prediction",
+    "user_query": "Compare the current groundwater level in Tirunelveli with the predicted level for 2032.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "reason": "Measured baseline plus forecast comparison."
+    }
+  },
+  {
+    "id": 71,
+    "category": "data_prediction",
+    "user_query": "Compare the current groundwater level in Krishnagiri with the predicted level for 2033.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "reason": "Measured baseline plus forecast comparison."
+    }
+  },
+  {
+    "id": 72,
+    "category": "data_prediction",
+    "user_query": "Compare the current groundwater level in Namakkal with the predicted level for 2035.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "reason": "Measured baseline plus forecast comparison."
+    }
+  },
+  {
+    "id": 73,
+    "category": "prediction_data_knowledge",
+    "user_query": "Predict the groundwater level in Salem for 2027, compare it with the current level, and explain recharge measures.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast, measured baseline, and explanation."
+    }
+  },
+  {
+    "id": 74,
+    "category": "prediction_data_knowledge",
+    "user_query": "Predict the groundwater level in Coimbatore for 2028, compare it with the current level, and explain recharge measures.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast, measured baseline, and explanation."
+    }
+  },
+  {
+    "id": 75,
+    "category": "prediction_data_knowledge",
+    "user_query": "Predict the groundwater level in Madurai for 2029, compare it with the current level, and explain recharge measures.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast, measured baseline, and explanation."
+    }
+  },
+  {
+    "id": 76,
+    "category": "prediction_data_knowledge",
+    "user_query": "Predict the groundwater level in Chennai for 2030, compare it with the current level, and explain recharge measures.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast, measured baseline, and explanation."
+    }
+  },
+  {
+    "id": 77,
+    "category": "prediction_data_knowledge",
+    "user_query": "Predict the groundwater level in Erode for 2031, compare it with the current level, and explain recharge measures.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast, measured baseline, and explanation."
+    }
+  },
+  {
+    "id": 78,
+    "category": "clarification",
+    "user_query": "Predict the groundwater level.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "LOW",
+      "requires_clarification": true,
+      "clarification_question": "Which district and year should I forecast the groundwater level for?",
+      "agents": [],
+      "execution_order": [],
+      "reason": "Required information missing and not resolvable from memory."
+    }
+  },
+  {
+    "id": 79,
+    "category": "clarification",
+    "user_query": "What is the groundwater level?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "LOW",
+      "requires_clarification": true,
+      "clarification_question": "Which district's groundwater level would you like?",
+      "agents": [],
+      "execution_order": [],
+      "reason": "Required information missing and not resolvable from memory."
+    }
+  },
+  {
+    "id": 80,
+    "category": "clarification",
+    "user_query": "Forecast the level.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "LOW",
+      "requires_clarification": true,
+      "clarification_question": "Which district and year should I forecast for?",
+      "agents": [],
+      "execution_order": [],
+      "reason": "Required information missing and not resolvable from memory."
+    }
+  },
+  {
+    "id": 81,
+    "category": "clarification",
+    "user_query": "Show the rainfall.",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "LOW",
+      "requires_clarification": true,
+      "clarification_question": "Which district and year should I use for rainfall?",
+      "agents": [],
+      "execution_order": [],
+      "reason": "Required information missing and not resolvable from memory."
+    }
+  },
+  {
+    "id": 82,
+    "category": "clarification",
+    "user_query": "Predict for next year.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "LOW",
+      "requires_clarification": true,
+      "clarification_question": "Which district should I forecast for next year?",
+      "agents": [],
+      "execution_order": [],
+      "reason": "Required information missing and not resolvable from memory."
+    }
+  },
+  {
+    "id": 83,
+    "category": "clarification",
+    "user_query": "Predict the groundwater level.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "LOW",
+      "requires_clarification": true,
+      "clarification_question": "Which district and year should I forecast the groundwater level for?",
+      "agents": [],
+      "execution_order": [],
+      "reason": "Required information missing and not resolvable from memory."
+    }
+  },
+  {
+    "id": 84,
+    "category": "clarification",
+    "user_query": "What is the groundwater level?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "LOW",
+      "requires_clarification": true,
+      "clarification_question": "Which district's groundwater level would you like?",
+      "agents": [],
+      "execution_order": [],
+      "reason": "Required information missing and not resolvable from memory."
+    }
+  },
+  {
+    "id": 85,
+    "category": "clarification",
+    "user_query": "Forecast the level.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "LOW",
+      "requires_clarification": true,
+      "clarification_question": "Which district and year should I forecast for?",
+      "agents": [],
+      "execution_order": [],
+      "reason": "Required information missing and not resolvable from memory."
+    }
+  },
+  {
+    "id": 86,
+    "category": "clarification",
+    "user_query": "Show the rainfall.",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "LOW",
+      "requires_clarification": true,
+      "clarification_question": "Which district and year should I use for rainfall?",
+      "agents": [],
+      "execution_order": [],
+      "reason": "Required information missing and not resolvable from memory."
+    }
+  },
+  {
+    "id": 87,
+    "category": "clarification",
+    "user_query": "Predict for next year.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "LOW",
+      "requires_clarification": true,
+      "clarification_question": "Which district should I forecast for next year?",
+      "agents": [],
+      "execution_order": [],
+      "reason": "Required information missing and not resolvable from memory."
+    }
+  },
+  {
+    "id": 88,
+    "category": "follow_up",
+    "user_query": "What about Coimbatore?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Follow-up resolved from conversation memory."
+    },
+    "memory": {
+      "current_topic": "groundwater level",
+      "current_district": "Salem",
+      "current_active_agent": "data_agent",
+      "current_intent": "data_query"
+    }
+  },
+  {
+    "id": 89,
+    "category": "follow_up",
+    "user_query": "How about 2035?",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Follow-up resolved from conversation memory."
+    },
+    "memory": {
+      "current_topic": "prediction",
+      "current_prediction_target": "groundwater_level_m",
+      "current_district": "Salem",
+      "current_year": 2030,
+      "current_active_agent": "prediction_agent",
+      "current_intent": "prediction_query"
+    }
+  },
+  {
+    "id": 90,
+    "category": "follow_up",
+    "user_query": "Explain why.",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Follow-up resolved from conversation memory."
+    },
+    "memory": {
+      "current_topic": "groundwater level",
+      "current_district": "Madurai",
+      "current_active_agent": "data_agent",
+      "current_intent": "data_query"
+    }
+  },
+  {
+    "id": 91,
+    "category": "follow_up",
+    "user_query": "Compare it with Erode.",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Follow-up resolved from conversation memory."
+    },
+    "memory": {
+      "current_topic": "groundwater level",
+      "current_district": "Salem",
+      "current_active_agent": "data_agent",
+      "current_intent": "data_query"
+    }
+  },
+  {
+    "id": 92,
+    "category": "follow_up",
+    "user_query": "What about Coimbatore?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Follow-up resolved from conversation memory."
+    },
+    "memory": {
+      "current_topic": "groundwater level",
+      "current_district": "Salem",
+      "current_active_agent": "data_agent",
+      "current_intent": "data_query"
+    }
+  },
+  {
+    "id": 93,
+    "category": "follow_up",
+    "user_query": "How about 2035?",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Follow-up resolved from conversation memory."
+    },
+    "memory": {
+      "current_topic": "prediction",
+      "current_prediction_target": "groundwater_level_m",
+      "current_district": "Salem",
+      "current_year": 2030,
+      "current_active_agent": "prediction_agent",
+      "current_intent": "prediction_query"
+    }
+  },
+  {
+    "id": 94,
+    "category": "follow_up",
+    "user_query": "Explain why.",
+    "decision": {
+      "intent": "knowledge_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "knowledge_agent"
+      ],
+      "reason": "Follow-up resolved from conversation memory."
+    },
+    "memory": {
+      "current_topic": "groundwater level",
+      "current_district": "Madurai",
+      "current_active_agent": "data_agent",
+      "current_intent": "data_query"
+    }
+  },
+  {
+    "id": 95,
+    "category": "follow_up",
+    "user_query": "Compare it with Erode.",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Follow-up resolved from conversation memory."
+    },
+    "memory": {
+      "current_topic": "groundwater level",
+      "current_district": "Salem",
+      "current_active_agent": "data_agent",
+      "current_intent": "data_query"
+    }
+  },
+  {
+    "id": 96,
+    "category": "agent_failure",
+    "user_query": "What is the current groundwater level in Salem and explain why it is low?",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Measured value plus explanation (knowledge agent fails)."
+    },
+    "fail_agents": [
+      "knowledge_agent"
+    ]
+  },
+  {
+    "id": 97,
+    "category": "agent_failure",
+    "user_query": "Predict the groundwater level in Coimbatore for 2028 and explain the likely causes.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "execution_order": [
+        "prediction_agent",
+        "knowledge_agent"
+      ],
+      "reason": "Forecast plus explanation (prediction agent fails)."
+    },
+    "fail_agents": [
+      "prediction_agent"
+    ]
+  },
+  {
+    "id": 98,
+    "category": "agent_failure",
+    "user_query": "What is the groundwater level in Madurai?",
+    "decision": {
+      "intent": "data_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent"
+      ],
+      "execution_order": [
+        "data_agent"
+      ],
+      "reason": "Single data query (agent fails)."
+    },
+    "fail_agents": [
+      "data_agent"
+    ]
+  },
+  {
+    "id": 99,
+    "category": "unknown_agent",
+    "user_query": "Predict the groundwater level in Chennai for 2030.",
+    "decision": {
+      "intent": "prediction_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "prediction_agent"
+      ],
+      "reason": "Prediction requested but prediction agent is unavailable."
+    },
+    "missing_agents": [
+      "prediction_agent"
+    ]
+  },
+  {
+    "id": 100,
+    "category": "unknown_agent",
+    "user_query": "Compare the current groundwater level in Erode with the predicted level for 2031.",
+    "decision": {
+      "intent": "mixed_query",
+      "confidence": "HIGH",
+      "requires_clarification": false,
+      "clarification_question": null,
+      "agents": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "execution_order": [
+        "data_agent",
+        "prediction_agent"
+      ],
+      "reason": "Data available, prediction agent unavailable."
+    },
+    "missing_agents": [
+      "prediction_agent"
+    ]
+  }
+]

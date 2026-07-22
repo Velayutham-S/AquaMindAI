@@ -65,6 +65,13 @@ class PlannerDecision:
     agents: tuple[AgentName, ...]
     execution_order: tuple[AgentName, ...]
     reason: str
+    # Structured prediction slots. Populated ONLY for prediction / mixed
+    # prediction queries; null for every other intent. The Planner extracts
+    # these from the query (or resolves them from Conversation Memory); the
+    # Prediction Agent consumes them as structured inputs and performs no NLU.
+    district: str | None = None
+    firka: str | None = None
+    target_year: int | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -74,6 +81,9 @@ class PlannerDecision:
             "clarification_question": self.clarification_question,
             "agents": [agent.value for agent in self.agents],
             "execution_order": [agent.value for agent in self.execution_order],
+            "district": self.district,
+            "firka": self.firka,
+            "target_year": self.target_year,
             "reason": self.reason,
         }
 

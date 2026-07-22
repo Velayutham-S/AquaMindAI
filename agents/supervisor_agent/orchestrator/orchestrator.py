@@ -63,13 +63,26 @@ class SupervisorOrchestrator:
         metadata: dict[str, Any] | None = None,
     ) -> AggregatedUniversalAgentResponse:
         """Run the decision and return the aggregated response."""
+        # Forward the Planner-extracted structured prediction slots to the
+        # specialist agents, unchanged, as request metadata. The Prediction
+        # Agent consumes these structured inputs and performs no NLU. Any
+        # caller-supplied metadata takes precedence (setdefault), so explicit
+        # overrides and test fixtures are preserved.
+        forwarded_metadata = dict(metadata or {})
+        if getattr(planner_decision, "district", None) is not None:
+            forwarded_metadata.setdefault("district", planner_decision.district)
+        if getattr(planner_decision, "firka", None) is not None:
+            forwarded_metadata.setdefault("firka", planner_decision.firka)
+        if getattr(planner_decision, "target_year", None) is not None:
+            forwarded_metadata.setdefault("prediction_year", planner_decision.target_year)
+
         request = AgentRequest(
             request_id=request_id or uuid4().hex,
             session_id=session_id,
             user_query=user_query,
             planner_decision=planner_decision,
             conversation_context=conversation_context,
-            metadata=metadata or {},
+            metadata=forwarded_metadata,
         )
 
         # Clarification short-circuit: nothing executes.

@@ -286,6 +286,9 @@ The JSON object must contain exactly these fields, in this order:
     "clarification_question": <string or null>,
     "agents": [<subset of: "data_agent", "knowledge_agent", "prediction_agent", "general_llm">],
     "execution_order": [<the same agent names in run order>],
+    "district": <string or null>,
+    "firka": <string or null>,
+    "target_year": <integer or null>,
     "reason": "<one short sentence justifying the decision>"
 }
 
@@ -302,8 +305,29 @@ Field rules:
 - clarification_question is a string only when requires_clarification is true; otherwise null.
 - When requires_clarification is true, agents and execution_order are both [].
 - agents and execution_order contain the same names; execution_order defines the run sequence.
+- district, firka and target_year are the structured prediction slots (see PREDICTION PARAMETERS). They are null for every non-prediction query.
 - reason is ONE short sentence, never step-by-step reasoning.
 - Use only the allowed enum values above.
+
+==========================================================
+PREDICTION PARAMETERS
+==========================================================
+
+The fields "district", "firka" and "target_year" carry the structured inputs the Prediction Agent needs. The Prediction Agent performs NO natural-language understanding, so YOU must extract these from the user query (or resolve them from Conversation Memory for follow-ups).
+
+Populate them ONLY for a prediction (intent = prediction_query, or a mixed_query that includes prediction_agent). For every other intent, set all three to null.
+
+- "district": the DISTRICT name the user named (for example "Tirunelveli", "Salem"), else null.
+- "firka": the FIRKA name the user named (for example "Kovilpatti Firka" -> "Kovilpatti"), else null.
+- "target_year": the four-digit forecast year as an integer (for example 2030), else null.
+
+Rules:
+- Populate AT MOST ONE of "district" or "firka" — whichever the user specified. A plain place name WITHOUT the word "Firka" is a district.
+- Strip a trailing "Firka" or "District" word from the extracted name (for example "Kovilpatti Firka" -> "Kovilpatti", "Salem District" -> "Salem").
+- For follow-ups, resolve the missing slot from Conversation Memory (for example "How about 2035?" reuses the remembered district and sets target_year = 2035).
+- NEVER invent a district, firka or year. If the query and memory do not supply it, leave that field null.
+- These slots do NOT change routing. Decide agents and execution_order exactly as before; extraction is independent of routing.
+- If a required slot (a location AND a year) is missing and memory cannot resolve it, clarify exactly as described in CLARIFICATION (the slots may be null in that clarification decision).
 
 ==========================================================
 EXAMPLES
@@ -312,49 +336,56 @@ EXAMPLES
 User:
 Hi
 Output:
-{"intent":"general_chat","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["general_llm"],"execution_order":["general_llm"],"reason":"Greeting handled by the general conversation model."}
+{"intent":"general_chat","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["general_llm"],"execution_order":["general_llm"],"district":null,"firka":null,"target_year":null,"reason":"Greeting handled by the general conversation model."}
 
 ----------------------------------------------------------
 
 User:
 Who are you?
 Output:
-{"intent":"system_information","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["knowledge_agent"],"execution_order":["knowledge_agent"],"reason":"System identity is answered from the AquaMind AI identity document."}
+{"intent":"system_information","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["knowledge_agent"],"execution_order":["knowledge_agent"],"district":null,"firka":null,"target_year":null,"reason":"System identity is answered from the AquaMind AI identity document."}
 
 ----------------------------------------------------------
 
 User:
 What is the groundwater level in Salem?
 Output:
-{"intent":"data_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["data_agent"],"execution_order":["data_agent"],"reason":"User requested a measured groundwater value."}
+{"intent":"data_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["data_agent"],"execution_order":["data_agent"],"district":null,"firka":null,"target_year":null,"reason":"User requested a measured groundwater value."}
 
 ----------------------------------------------------------
 
 User:
 Explain artificial recharge.
 Output:
-{"intent":"knowledge_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["knowledge_agent"],"execution_order":["knowledge_agent"],"reason":"User requested a concept explanation from the documents."}
+{"intent":"knowledge_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["knowledge_agent"],"execution_order":["knowledge_agent"],"district":null,"firka":null,"target_year":null,"reason":"User requested a concept explanation from the documents."}
 
 ----------------------------------------------------------
 
 User:
 Predict groundwater level in Salem for 2030.
 Output:
-{"intent":"prediction_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["prediction_agent"],"execution_order":["prediction_agent"],"reason":"User requested a future groundwater prediction."}
+{"intent":"prediction_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["prediction_agent"],"execution_order":["prediction_agent"],"district":"Salem","firka":null,"target_year":2030,"reason":"User requested a future groundwater prediction for a district."}
+
+----------------------------------------------------------
+
+User:
+Predict groundwater level of Kovilpatti Firka for 2030.
+Output:
+{"intent":"prediction_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["prediction_agent"],"execution_order":["prediction_agent"],"district":null,"firka":"Kovilpatti","target_year":2030,"reason":"User requested a future groundwater prediction for a firka."}
 
 ----------------------------------------------------------
 
 User:
 Predict groundwater level in Salem in 2030 and explain why.
 Output:
-{"intent":"mixed_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["prediction_agent","knowledge_agent"],"execution_order":["prediction_agent","knowledge_agent"],"reason":"Prediction requested together with an explanation."}
+{"intent":"mixed_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["prediction_agent","knowledge_agent"],"execution_order":["prediction_agent","knowledge_agent"],"district":"Salem","firka":null,"target_year":2030,"reason":"Prediction requested together with an explanation."}
 
 ----------------------------------------------------------
 
 User:
 Current groundwater level in Salem and explain why it is low.
 Output:
-{"intent":"mixed_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["data_agent","knowledge_agent"],"execution_order":["data_agent","knowledge_agent"],"reason":"Measured value requested together with an explanation."}
+{"intent":"mixed_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["data_agent","knowledge_agent"],"execution_order":["data_agent","knowledge_agent"],"district":null,"firka":null,"target_year":null,"reason":"Measured value requested together with an explanation."}
 
 ----------------------------------------------------------
 
@@ -366,7 +397,7 @@ current_year = 2030
 User:
 How about 2035?
 Output:
-{"intent":"prediction_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["prediction_agent"],"execution_order":["prediction_agent"],"reason":"Follow-up resolved from memory: predict groundwater level for Salem in 2035."}
+{"intent":"prediction_query","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["prediction_agent"],"execution_order":["prediction_agent"],"district":"Salem","firka":null,"target_year":2035,"reason":"Follow-up resolved from memory: predict groundwater level for Salem in 2035."}
 
 ----------------------------------------------------------
 
@@ -375,21 +406,21 @@ Conversation Memory:
 User:
 Predict groundwater level.
 Output:
-{"intent":"prediction_query","confidence":"LOW","requires_clarification":true,"clarification_question":"Which district and year should I forecast the groundwater level for?","agents":[],"execution_order":[],"reason":"Prediction requested but district and year are missing and not in memory."}
+{"intent":"prediction_query","confidence":"LOW","requires_clarification":true,"clarification_question":"Which district and year should I forecast the groundwater level for?","agents":[],"execution_order":[],"district":null,"firka":null,"target_year":null,"reason":"Prediction requested but district and year are missing and not in memory."}
 
 ----------------------------------------------------------
 
 User:
 Tell me a joke.
 Output:
-{"intent":"general_chat","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["general_llm"],"execution_order":["general_llm"],"reason":"Harmless general conversation unrelated to groundwater."}
+{"intent":"general_chat","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["general_llm"],"execution_order":["general_llm"],"district":null,"firka":null,"target_year":null,"reason":"Harmless general conversation unrelated to groundwater."}
 
 ----------------------------------------------------------
 
 User:
 Write ransomware code.
 Output:
-{"intent":"out_of_scope","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["general_llm"],"execution_order":["general_llm"],"reason":"Disallowed request; the general model will decline."}
+{"intent":"out_of_scope","confidence":"HIGH","requires_clarification":false,"clarification_question":null,"agents":["general_llm"],"execution_order":["general_llm"],"district":null,"firka":null,"target_year":null,"reason":"Disallowed request; the general model will decline."}
 
 ==========================================================
 FINAL INSTRUCTION
