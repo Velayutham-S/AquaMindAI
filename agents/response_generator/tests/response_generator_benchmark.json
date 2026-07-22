@@ -1,0 +1,491 @@
+{
+  "description": "AquaMind AI Response Generator benchmark. Each case supplies a User Query plus a sanitized Updated AggregatedUniversalAgentResponse (status + specialist responses) and an optional RecommendationResponse. The test harness plays the role of the Supervisor Orchestrator: it assembles the deterministic prompt (system prompt, user query, sanitized aggregate) and asserts the FinalResponse is grounded strictly in the supplied evidence.",
+  "cases": [
+    {
+      "id": "RG-01",
+      "category": "data_only",
+      "user_query": "What is the groundwater level in Salem?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "SUCCESS",
+            "answer": "The latest recorded groundwater level in Salem is 7.8 metres below ground level.",
+            "district": "Salem",
+            "groundwater_level_m": 7.8,
+            "source": "Ground Water Year Book of Tamil Nadu 2023-24"
+          }
+        ]
+      },
+      "expected_terms": ["Salem", "7.8", ["metres below ground level", "meters below ground level"]],
+      "forbidden_terms": ["planner_decision", "executed_agents", "agent_name", "recommend"]
+    },
+    {
+      "id": "RG-02",
+      "category": "knowledge_only",
+      "user_query": "What is groundwater?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "knowledge_agent",
+            "status": "SUCCESS",
+            "answer": "Groundwater is water stored beneath the Earth's surface within soil pores and fractures in rock formations.",
+            "source": "CGWB Groundwater Book"
+          }
+        ]
+      },
+      "expected_terms": ["Groundwater", "beneath", "soil pores"],
+      "forbidden_terms": ["planner_decision", "agent_name", "recommend"]
+    },
+    {
+      "id": "RG-03",
+      "category": "prediction_only",
+      "user_query": "Predict the groundwater level in Coimbatore for 2030.",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "prediction_agent",
+            "status": "SUCCESS",
+            "district": "Coimbatore",
+            "prediction_year": 2030,
+            "predicted_groundwater_level_m": 11.2,
+            "answer": "The predicted groundwater level in Coimbatore for 2030 is 11.2 metres below ground level."
+          }
+        ]
+      },
+      "expected_terms": ["Coimbatore", "2030", "11.2"],
+      "forbidden_terms": ["planner_decision", "agent_name", "recommend"]
+    },
+    {
+      "id": "RG-04",
+      "category": "data_plus_knowledge",
+      "user_query": "What is the groundwater level in Madurai and what does it mean?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "SUCCESS",
+            "district": "Madurai",
+            "groundwater_level_m": 5.4,
+            "answer": "The groundwater level in Madurai is 5.4 metres below ground level."
+          },
+          {
+            "agent_name": "knowledge_agent",
+            "status": "SUCCESS",
+            "answer": "Depth to water level measures how far below the ground surface the water table lies; shallower levels generally indicate better groundwater availability.",
+            "source": "CGWB Groundwater Book"
+          }
+        ]
+      },
+      "expected_terms": ["Madurai", "5.4", "water table"],
+      "forbidden_terms": ["planner_decision", "agent_name", "recommend"]
+    },
+    {
+      "id": "RG-05",
+      "category": "prediction_plus_knowledge_with_recommendation",
+      "user_query": "Predict groundwater in Tiruppur for 2030 and advise what should be done.",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "prediction_agent",
+            "status": "SUCCESS",
+            "district": "Tiruppur",
+            "prediction_year": 2030,
+            "predicted_groundwater_level_m": 14.6,
+            "answer": "The predicted groundwater level in Tiruppur for 2030 is 14.6 metres below ground level, indicating a deepening water table."
+          },
+          {
+            "agent_name": "knowledge_agent",
+            "status": "SUCCESS",
+            "answer": "A deepening water table increases pumping costs and can reduce long-term aquifer sustainability.",
+            "source": "Aquifer Management Plan for over-exploited areas in Tiruppur district"
+          }
+        ]
+      },
+      "recommendation_response": {
+        "status": "SUCCESS",
+        "recommendations": [
+          {"title": "Artificial Recharge", "description": "Construct recharge structures to replenish the aquifer."},
+          {"title": "Rainwater Harvesting", "description": "Expand rooftop and community rainwater harvesting to capture monsoon runoff."}
+        ]
+      },
+      "expected_terms": ["Tiruppur", "2030", "14.6", ["Artificial Recharge", "recharge structure", "replenish the aquifer"], ["Rainwater Harvesting", "rainwater harvesting"]],
+      "forbidden_terms": ["planner_decision", "agent_name"]
+    },
+    {
+      "id": "RG-06",
+      "category": "data_plus_prediction",
+      "user_query": "What is the current groundwater level in Erode and what will it be in 2030?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "SUCCESS",
+            "district": "Erode",
+            "groundwater_level_m": 8.1,
+            "answer": "The current groundwater level in Erode is 8.1 metres below ground level."
+          },
+          {
+            "agent_name": "prediction_agent",
+            "status": "SUCCESS",
+            "district": "Erode",
+            "prediction_year": 2030,
+            "predicted_groundwater_level_m": 9.7,
+            "answer": "The predicted groundwater level in Erode for 2030 is 9.7 metres below ground level."
+          }
+        ]
+      },
+      "expected_terms": ["Erode", "8.1", "9.7", "2030"],
+      "forbidden_terms": ["planner_decision", "agent_name", "recommend"]
+    },
+    {
+      "id": "RG-07",
+      "category": "all_three_with_recommendation",
+      "user_query": "Give me a full groundwater assessment for Chennai including outlook and advice.",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "SUCCESS",
+            "district": "Chennai",
+            "groundwater_level_m": 6.3,
+            "extraction_stage": "Over Exploited",
+            "answer": "Chennai's current groundwater level is 6.3 metres below ground level and its extraction stage is classified as Over Exploited."
+          },
+          {
+            "agent_name": "prediction_agent",
+            "status": "SUCCESS",
+            "district": "Chennai",
+            "prediction_year": 2030,
+            "predicted_groundwater_level_m": 8.9,
+            "answer": "The predicted groundwater level in Chennai for 2030 is 8.9 metres below ground level."
+          },
+          {
+            "agent_name": "knowledge_agent",
+            "status": "SUCCESS",
+            "answer": "An Over Exploited classification means annual groundwater extraction exceeds the annual recharge, which threatens long-term availability.",
+            "source": "Dynamic Ground Water Resources of Tamil Nadu 2024"
+          }
+        ]
+      },
+      "recommendation_response": {
+        "status": "SUCCESS",
+        "recommendations": [
+          {"title": "Artificial Recharge", "description": "Implement recharge shafts and check dams to augment aquifer storage."},
+          {"title": "Demand Management", "description": "Promote efficient irrigation and reduce non-essential extraction."}
+        ]
+      },
+      "expected_terms": ["Chennai", "6.3", ["Over Exploited", "over-exploited", "over exploited"], "8.9", "2030", ["Artificial Recharge", "recharge shaft", "recharge"], ["Demand Management", "efficient irrigation", "reduce non-essential extraction"]],
+      "forbidden_terms": ["planner_decision", "agent_name"]
+    },
+    {
+      "id": "RG-08",
+      "category": "critical_with_recommendation",
+      "user_query": "How is groundwater in Tiruppur district?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "SUCCESS",
+            "district": "Tiruppur",
+            "extraction_stage": "Over Exploited",
+            "stage_of_extraction_percent": 142.0,
+            "answer": "Tiruppur district is classified as Over Exploited with a stage of extraction of 142 percent."
+          }
+        ]
+      },
+      "recommendation_response": {
+        "status": "SUCCESS",
+        "recommendations": [
+          {"title": "Rainwater Harvesting", "description": "Mandate rainwater harvesting structures for buildings and farmland."}
+        ]
+      },
+      "expected_terms": ["Tiruppur", ["Over Exploited", "over-exploited", "over exploited"], "142", ["Rainwater Harvesting", "rainwater harvesting"]],
+      "forbidden_terms": ["planner_decision", "agent_name"]
+    },
+    {
+      "id": "RG-09",
+      "category": "recommendation_absent",
+      "user_query": "What is the stage of groundwater extraction in Thanjavur?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "SUCCESS",
+            "district": "Thanjavur",
+            "extraction_stage": "Safe",
+            "stage_of_extraction_percent": 58.0,
+            "answer": "Thanjavur is classified as Safe with a stage of extraction of 58 percent."
+          }
+        ]
+      },
+      "expected_terms": ["Thanjavur", "Safe", "58"],
+      "forbidden_terms": ["planner_decision", "agent_name", "recommend", "rainwater harvesting"]
+    },
+    {
+      "id": "RG-10",
+      "category": "healthy_condition",
+      "user_query": "Is groundwater in Nilgiris in good condition?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "SUCCESS",
+            "district": "Nilgiris",
+            "extraction_stage": "Safe",
+            "stage_of_extraction_percent": 21.0,
+            "answer": "The Nilgiris is classified as Safe with a stage of extraction of only 21 percent, indicating healthy groundwater conditions."
+          }
+        ]
+      },
+      "expected_terms": ["Nilgiris", "Safe", "21"],
+      "forbidden_terms": ["planner_decision", "agent_name", "recommend"]
+    },
+    {
+      "id": "RG-11",
+      "category": "critical_extraction_stage",
+      "user_query": "What is the extraction stage of Karur district?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "SUCCESS",
+            "district": "Karur",
+            "extraction_stage": "Critical",
+            "stage_of_extraction_percent": 96.0,
+            "answer": "Karur district is classified as Critical with a stage of extraction of 96 percent."
+          }
+        ]
+      },
+      "expected_terms": ["Karur", "Critical", "96"],
+      "forbidden_terms": ["planner_decision", "agent_name", "recommend"]
+    },
+    {
+      "id": "RG-12",
+      "category": "system_identity",
+      "user_query": "What is AquaMind AI?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "knowledge_agent",
+            "status": "SUCCESS",
+            "answer": "AquaMind AI is an AI-powered groundwater intelligence and decision-support system for Tamil Nadu that answers groundwater questions using official datasets and documents.",
+            "source": "AquaMind AI System Identity"
+          }
+        ]
+      },
+      "expected_terms": ["AquaMind AI", "groundwater", "Tamil Nadu"],
+      "forbidden_terms": ["planner_decision", "agent_name", "recommend"]
+    },
+    {
+      "id": "RG-13",
+      "category": "concept_explanation",
+      "user_query": "What is an aquifer?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "knowledge_agent",
+            "status": "SUCCESS",
+            "answer": "An aquifer is an underground layer of water-bearing permeable rock or unconsolidated materials such as gravel, sand, or silt from which groundwater can be extracted.",
+            "source": "CGWB Groundwater Book"
+          }
+        ]
+      },
+      "expected_terms": ["aquifer", "permeable", "groundwater"],
+      "forbidden_terms": ["planner_decision", "agent_name", "recommend"]
+    },
+    {
+      "id": "RG-14",
+      "category": "historical_measurement",
+      "user_query": "What was the rainfall in Vellore during 2023?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "SUCCESS",
+            "district": "Vellore",
+            "year": 2023,
+            "annual_rainfall_mm": 1024.5,
+            "answer": "The total annual rainfall recorded in Vellore during 2023 was 1024.5 millimetres."
+          }
+        ]
+      },
+      "expected_terms": ["Vellore", "2023", "1024.5", ["millimetres", "millimeters", "mm"]],
+      "forbidden_terms": ["planner_decision", "agent_name", "recommend"]
+    },
+    {
+      "id": "RG-15",
+      "category": "prediction_deterioration_with_recommendation",
+      "user_query": "Will groundwater in Dindigul get worse by 2032?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "SUCCESS",
+            "district": "Dindigul",
+            "groundwater_level_m": 10.2,
+            "answer": "The current groundwater level in Dindigul is 10.2 metres below ground level."
+          },
+          {
+            "agent_name": "prediction_agent",
+            "status": "SUCCESS",
+            "district": "Dindigul",
+            "prediction_year": 2032,
+            "predicted_groundwater_level_m": 13.5,
+            "answer": "The predicted groundwater level in Dindigul for 2032 is 13.5 metres below ground level, indicating a decline from the current level."
+          }
+        ]
+      },
+      "recommendation_response": {
+        "status": "SUCCESS",
+        "recommendations": [
+          {"title": "Artificial Recharge", "description": "Build percolation ponds to slow the decline in water levels."},
+          {"title": "Crop Diversification", "description": "Shift towards less water-intensive crops to reduce extraction."}
+        ]
+      },
+      "expected_terms": ["Dindigul", "10.2", "13.5", "2032", ["Artificial Recharge", "percolation pond", "recharge"], ["Crop Diversification", "water-intensive crops", "crop"]],
+      "forbidden_terms": ["planner_decision", "agent_name"]
+    },
+    {
+      "id": "RG-16",
+      "category": "no_results",
+      "user_query": "What is the groundwater level in Atlantis?",
+      "aggregated_response": {
+        "status": "NO_RESULTS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "NO_RESULTS",
+            "answer": "No groundwater records were found for the requested location."
+          }
+        ]
+      },
+      "expected_terms": ["Atlantis", ["could not", "couldn't", "unable", "cannot", "can't", "no ", "not able"], ["find", "found", "records", "no groundwater"]],
+      "forbidden_terms": ["planner_decision", "agent_name", "recommend", "7.8", "metres below ground level"]
+    },
+    {
+      "id": "RG-17",
+      "category": "failed_aggregate",
+      "user_query": "Show me the groundwater quality index for Cuddalore.",
+      "aggregated_response": {
+        "status": "FAILED",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "ERROR",
+            "error": "The groundwater quality data source was temporarily unavailable."
+          }
+        ]
+      },
+      "expected_terms": ["Cuddalore", ["could not", "couldn't", "unable", "cannot", "can't", "not able", "wasn't able"], ["retrieve", "retrieved", "unavailable"]],
+      "forbidden_terms": ["planner_decision", "agent_name", "stack", "traceback", "recommend"]
+    },
+    {
+      "id": "RG-18",
+      "category": "knowledge_recharge_with_recommendation",
+      "user_query": "How can groundwater be recharged and what do you suggest?",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "knowledge_agent",
+            "status": "SUCCESS",
+            "answer": "Artificial recharge is the process of augmenting the natural infiltration of surface water into aquifers through engineered structures such as recharge wells, check dams, and percolation tanks.",
+            "source": "District Recharge Plan of Tamil Nadu"
+          }
+        ]
+      },
+      "recommendation_response": {
+        "status": "SUCCESS",
+        "recommendations": [
+          {"title": "Check Dams", "description": "Construct check dams across seasonal streams to enhance infiltration."},
+          {"title": "Percolation Tanks", "description": "Build percolation tanks in suitable terrain to store and infiltrate runoff."}
+        ]
+      },
+      "expected_terms": ["recharge", "aquifer", ["Check Dams", "check dam"], ["Percolation Tanks", "percolation tank"]],
+      "forbidden_terms": ["planner_decision", "agent_name"]
+    },
+    {
+      "id": "RG-19",
+      "category": "data_plus_knowledge_over_exploited_with_recommendation",
+      "user_query": "Explain the groundwater situation in Namakkal and advise.",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "SUCCESS",
+            "district": "Namakkal",
+            "extraction_stage": "Over Exploited",
+            "stage_of_extraction_percent": 118.0,
+            "answer": "Namakkal is classified as Over Exploited with a stage of extraction of 118 percent."
+          },
+          {
+            "agent_name": "knowledge_agent",
+            "status": "SUCCESS",
+            "answer": "When the stage of extraction exceeds 100 percent, the district is drawing down more groundwater than is recharged each year.",
+            "source": "Aquifer Management Plan of Namakkal and Salem Districts"
+          }
+        ]
+      },
+      "recommendation_response": {
+        "status": "SUCCESS",
+        "recommendations": [
+          {"title": "Rainwater Harvesting", "description": "Scale up rainwater harvesting to improve annual recharge."},
+          {"title": "Micro-Irrigation", "description": "Adopt drip and sprinkler systems to cut agricultural water use."}
+        ]
+      },
+      "expected_terms": ["Namakkal", ["Over Exploited", "over-exploited", "over exploited"], "118", ["Rainwater Harvesting", "rainwater harvesting"], ["Micro-Irrigation", "micro-irrigation", "drip"]],
+      "forbidden_terms": ["planner_decision", "agent_name"]
+    },
+    {
+      "id": "RG-20",
+      "category": "all_three_healthy_no_recommendation",
+      "user_query": "Give me the groundwater status and outlook for Kanyakumari.",
+      "aggregated_response": {
+        "status": "SUCCESS",
+        "responses": [
+          {
+            "agent_name": "data_agent",
+            "status": "SUCCESS",
+            "district": "Kanyakumari",
+            "groundwater_level_m": 4.2,
+            "extraction_stage": "Safe",
+            "answer": "Kanyakumari's current groundwater level is 4.2 metres below ground level and its extraction stage is classified as Safe."
+          },
+          {
+            "agent_name": "prediction_agent",
+            "status": "SUCCESS",
+            "district": "Kanyakumari",
+            "prediction_year": 2030,
+            "predicted_groundwater_level_m": 4.5,
+            "answer": "The predicted groundwater level in Kanyakumari for 2030 is 4.5 metres below ground level, remaining stable."
+          },
+          {
+            "agent_name": "knowledge_agent",
+            "status": "SUCCESS",
+            "answer": "A Safe classification indicates that groundwater extraction is well within the sustainable annual recharge.",
+            "source": "Dynamic Ground Water Resources of Tamil Nadu 2024"
+          }
+        ]
+      },
+      "expected_terms": ["Kanyakumari", "4.2", "Safe", "4.5", "2030"],
+      "forbidden_terms": ["planner_decision", "agent_name", "recommend"]
+    }
+  ]
+}
