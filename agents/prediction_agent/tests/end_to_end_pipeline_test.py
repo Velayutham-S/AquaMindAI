@@ -44,7 +44,7 @@ try:
 except (AttributeError, ValueError):
     pass
 
-import config  # noqa: E402
+import prediction_config as config  # noqa: E402  (unique module name; avoids sys.modules 'config' collision)
 import prediction_benchmark_test as bench  # noqa: E402  (reuse existing runtime parsing)
 from dataset_integrator import DatasetIntegrator  # noqa: E402
 from feature_engineering import FeatureEngineer  # noqa: E402

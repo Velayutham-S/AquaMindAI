@@ -48,7 +48,7 @@ except (AttributeError, ValueError):
 
 import pandas as pd  # noqa: E402
 
-import config  # noqa: E402
+import prediction_config as config  # noqa: E402  (unique module name; avoids sys.modules 'config' collision)
 from dataset_integrator import DatasetIntegrator, _DISTRICT_KEY  # noqa: E402
 from feature_engineering import FeatureEngineer  # noqa: E402
 from model_registry import ModelRegistry  # noqa: E402

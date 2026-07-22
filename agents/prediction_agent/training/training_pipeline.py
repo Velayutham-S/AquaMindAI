@@ -33,7 +33,7 @@ for _path in (_PREDICTION_AGENT_DIR, _TRAINING_DIR):
     if str(_path) not in sys.path:
         sys.path.insert(0, str(_path))
 
-import config  # noqa: E402
+import prediction_config as config  # noqa: E402  (unique module name; avoids sys.modules 'config' collision)
 from dataset_integrator import DatasetIntegrator  # noqa: E402
 from feature_engineering import FeatureEngineer  # noqa: E402
 from model_trainer import ModelTrainer  # noqa: E402

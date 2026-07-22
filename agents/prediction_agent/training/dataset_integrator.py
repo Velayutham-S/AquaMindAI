@@ -42,7 +42,7 @@ from pathlib import Path
 
 import pandas as pd
 
-import config  # noqa: E402  (prediction_agent dir is on sys.path via the orchestrator)
+import prediction_config as config  # noqa: E402  (unique module name; avoids sys.modules 'config' collision)
 from dataset_loader import DatasetLoader  # noqa: E402  (reused base loader)
 
 logger = logging.getLogger("aquamind.prediction.dataset_integrator")
