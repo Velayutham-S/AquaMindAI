@@ -22,6 +22,7 @@ Run directly for a minimal smoke test:
 
 from __future__ import annotations
 
+import hashlib
 import logging
 import os
 import re
@@ -31,6 +32,8 @@ from pathlib import Path
 import openai
 from openai import OpenAI
 from dotenv import load_dotenv
+
+from sql_intent_validator import IntentValidationError, SqlIntentValidator
 
 logger = logging.getLogger("aquamind.sql_generator")
 
@@ -64,6 +67,19 @@ RETRY_BASE_DELAY_SECONDS: float = 5.0
 RETRY_MAX_DELAY_SECONDS: float = 60.0
 GENERATION_TEMPERATURE: float = 0.0  # deterministic SQL
 MAX_OUTPUT_TOKENS: int = 2048
+
+#: Total SQL-generation attempts (1 initial + regenerations). When the generated
+#: SQL fails intent/safety validation, the generator regenerates with corrective
+#: feedback appended to the prompt, up to this many attempts.
+MAX_GENERATION_ATTEMPTS: int = 3
+
+#: Empty / unusable LLM responses are sometimes transient at the provider. The
+#: SQL Generator retries the model call this many times total before giving up.
+#: Verification contract: three empty responses in a row stop the pipeline.
+EMPTY_RESPONSE_MAX_ATTEMPTS: int = 3
+#: Backoff (seconds) applied BEFORE each retry after an empty response
+#: (index 0 -> before the 2nd attempt, index 1 -> before the 3rd, ...).
+EMPTY_RESPONSE_BACKOFF_SECONDS: tuple[float, ...] = (1.0, 2.0, 4.0)
 
 #: SQL keywords that must never appear in generated output (read-only guarantee).
 FORBIDDEN_SQL_KEYWORDS: tuple[str, ...] = (
@@ -102,8 +118,19 @@ class LlmApiError(SqlGeneratorError):
     """The LLM API call failed (after retries) or returned no usable text."""
 
 
+class EmptyLlmResponseError(LlmApiError):
+    """The LLM returned an empty / unusable response.
+
+    Empty means any of: ``None``, an empty or whitespace-only string, or the
+    degenerate literals ``{}``, ``[]`` or ``null``. Raised only after the
+    empty-response retries are exhausted. Subclasses ``LlmApiError`` so existing
+    ``except LlmApiError`` / ``except SqlGeneratorError`` handling still applies,
+    while the distinct class name lets the pipeline identify this exact cause.
+    """
+
+
 class ValidationError(SqlGeneratorError):
-    """The generated SQL failed validation (malformed or unsafe).
+    """The generated SQL failed validation (malformed, unsafe, or not minimal).
 
     The offending SQL is attached as ``.sql`` for diagnostics.
     """
@@ -111,6 +138,19 @@ class ValidationError(SqlGeneratorError):
     def __init__(self, message: str, sql: str | None = None) -> None:
         super().__init__(message)
         self.sql = sql
+
+
+class ClarificationNeededError(SqlGeneratorError):
+    """The question is under-specified for the Data Agent (no location).
+
+    Raised BEFORE any LLM call when the user names no district or firka and the
+    question is not an aggregate/ranking/"all" query, so no minimal SQL can be
+    written. ``clarification`` carries a user-facing prompt for a location.
+    """
+
+    def __init__(self, clarification: str) -> None:
+        super().__init__(clarification)
+        self.clarification = clarification
 
 
 # --------------------------------------------------------------------------- #
@@ -137,6 +177,36 @@ def _resolve_api_key() -> str:
             f"{API_KEY_ENV_VAR} is not set. Add it to {ENV_PATH} or the environment."
         )
     return api_key
+
+
+def _is_nonempty_llm_text(text: str | None) -> bool:
+    """True only when ``text`` is a usable, non-empty model response.
+
+    Treats as EMPTY / invalid: ``None``, empty string, whitespace-only, and the
+    degenerate literals ``{}``, ``[]``, ``null`` and ``None``.
+    """
+    if text is None:
+        return False
+    stripped = text.strip()
+    if not stripped:
+        return False
+    if stripped in ("{}", "[]", "null", "None"):
+        return False
+    return True
+
+
+def _provider_label(base_url: str) -> str:
+    """Human-readable provider name derived from the client base URL (for logs)."""
+    url = (base_url or "").lower()
+    if "opencode" in url:
+        return "OpenCode Zen"
+    if "groq" in url:
+        return "Groq"
+    if "googleapis" in url or "gemini" in url:
+        return "Gemini"
+    if "openai.com" in url:
+        return "OpenAI"
+    return base_url or "unknown"
 
 
 def _resolve_rpm() -> int:
@@ -250,12 +320,22 @@ class SqlGenerator:
         requests_per_minute: int | None = None,
         request_timeout: int = REQUEST_TIMEOUT_SECONDS,
         max_retries: int = MAX_RETRIES,
+        max_generation_attempts: int = MAX_GENERATION_ATTEMPTS,
     ) -> None:
         self._system_prompt = _load_text_file(SYSTEM_PROMPT_PATH)
         self._schema = _load_text_file(SCHEMA_PATH)
 
+        # Intent-aware minimality validation (Data-Agent-only, no LLM/no exec).
+        self._intent_validator = SqlIntentValidator()
+        self._max_generation_attempts = max(1, max_generation_attempts)
+
         key = api_key or _resolve_api_key()
         self._model_name = model_name
+        # Base URL is read from the module global at construction time (the
+        # production wiring overrides it to the OpenCode Zen endpoint). Captured
+        # here for diagnostic logging (provider label).
+        self._base_url = GEMINI_BASE_URL
+        self._provider_label = _provider_label(GEMINI_BASE_URL)
         # Disable the SDK's own retries; retry/backoff is handled below.
         self._client = OpenAI(
             base_url=GEMINI_BASE_URL,
@@ -276,8 +356,8 @@ class SqlGenerator:
 
     # -- prompt ----------------------------------------------------------- #
 
-    def _build_prompt(self, user_query: str) -> str:
-        return (
+    def _build_prompt(self, user_query: str, feedback: str | None = None) -> str:
+        prompt = (
             f"{self._system_prompt}\n\n"
             "==========================================================\n"
             "DATABASE SCHEMA (authoritative)\n"
@@ -289,6 +369,16 @@ class SqlGenerator:
             f"{user_query.strip()}\n\n"
             "Return only the SQLite SELECT query."
         )
+        if feedback:
+            # A prior attempt was rejected; steer the regeneration.
+            prompt += (
+                "\n\n==========================================================\n"
+                "REGENERATION FEEDBACK (the previous SQL was rejected)\n"
+                "==========================================================\n"
+                f"{feedback}\n"
+                "Return only the corrected SQLite SELECT query."
+            )
+        return prompt
 
     # -- rate limiting ---------------------------------------------------- #
 
@@ -302,7 +392,14 @@ class SqlGenerator:
 
     # -- LLM call --------------------------------------------------------- #
 
-    def _call_llm(self, prompt: str) -> str:
+    def _invoke_model(self, prompt: str) -> tuple[str | None, str | None]:
+        """One logical model call with rate-limit / transient-error retries.
+
+        Returns ``(text, finish_reason)`` verbatim from the provider (the text
+        may be empty/None -- emptiness is validated by the caller). Raises
+        ``LlmApiError`` only on a non-transient API failure or after exhausting
+        transient retries.
+        """
         last_error: Exception | None = None
 
         for attempt in range(1, self._max_retries + 1):
@@ -315,11 +412,11 @@ class SqlGenerator:
                     temperature=GENERATION_TEMPERATURE,
                     max_tokens=MAX_OUTPUT_TOKENS,
                 )
-                text = completion.choices[0].message.content if completion.choices else None
-                if not text or not text.strip():
-                    raise LlmApiError("LLM returned an empty response.")
                 self.last_generation_seconds = time.monotonic() - start
-                return text
+                if completion.choices:
+                    choice = completion.choices[0]
+                    return choice.message.content, getattr(choice, "finish_reason", None)
+                return None, "no_choices"
             except openai.RateLimitError as error:
                 last_error = error
                 self.rate_limit_hits += 1
@@ -346,6 +443,50 @@ class SqlGenerator:
             f"LLM API call failed after {self._max_retries} retries: {last_error}"
         )
 
+    def _call_llm(self, prompt: str) -> str:
+        """Return a validated, non-empty model response.
+
+        The response is validated immediately: ``None``, empty, whitespace-only,
+        or the degenerate literals ``{}`` / ``[]`` / ``null`` are treated as
+        empty. Empty responses are retried (with backoff) up to
+        ``EMPTY_RESPONSE_MAX_ATTEMPTS`` times; if every attempt is empty,
+        ``EmptyLlmResponseError`` is raised and NO invalid text is returned.
+        """
+        prompt_len = len(prompt)
+        prompt_hash = hashlib.sha256(prompt.encode("utf-8")).hexdigest()[:16]
+
+        for attempt in range(1, EMPTY_RESPONSE_MAX_ATTEMPTS + 1):
+            text, finish_reason = self._invoke_model(prompt)
+            response_len = len(text) if text else 0
+            logger.info(
+                "SQL LLM call | provider=%s model=%s attempt=%d/%d prompt_len=%d "
+                "prompt_hash=%s response_len=%d finish_reason=%s",
+                self._provider_label, self._model_name, attempt,
+                EMPTY_RESPONSE_MAX_ATTEMPTS, prompt_len, prompt_hash,
+                response_len, finish_reason,
+            )
+
+            if _is_nonempty_llm_text(text):
+                return text
+
+            logger.error(
+                "SQL Generator received an EMPTY LLM response | provider=%s model=%s "
+                "attempt=%d/%d prompt_len=%d prompt_hash=%s response_len=%d "
+                "finish_reason=%s",
+                self._provider_label, self._model_name, attempt,
+                EMPTY_RESPONSE_MAX_ATTEMPTS, prompt_len, prompt_hash,
+                response_len, finish_reason,
+            )
+            if attempt < EMPTY_RESPONSE_MAX_ATTEMPTS:
+                index = min(attempt - 1, len(EMPTY_RESPONSE_BACKOFF_SECONDS) - 1)
+                time.sleep(EMPTY_RESPONSE_BACKOFF_SECONDS[index])
+
+        raise EmptyLlmResponseError(
+            f"SQL Generator returned an empty response after "
+            f"{EMPTY_RESPONSE_MAX_ATTEMPTS} attempts "
+            f"(provider={self._provider_label}, model={self._model_name})."
+        )
+
     @staticmethod
     def _backoff_delay(attempt: int) -> float:
         return min(RETRY_BASE_DELAY_SECONDS * (2 ** (attempt - 1)), RETRY_MAX_DELAY_SECONDS)
@@ -353,25 +494,91 @@ class SqlGenerator:
     # -- public API ------------------------------------------------------- #
 
     def generate(self, user_query: str) -> str:
-        """Return exactly one validated SQLite SELECT query for ``user_query``.
+        """Return exactly one validated, minimal SQLite SELECT for ``user_query``.
 
-        The generated SQL is validated before it is returned, so malformed or
-        unsafe SQL never reaches the executor.
+        The generated SQL passes both structural/safety validation
+        (``validate_sql``) and intent/minimality validation
+        (``SqlIntentValidator``) before it is returned, so malformed, unsafe, or
+        needlessly broad SQL never reaches the executor. If the first attempt is
+        rejected, the generator regenerates with corrective feedback appended to
+        the prompt, up to ``max_generation_attempts`` times.
 
-        Raises ``EmptyQueryError`` for a blank query, ``LlmApiError`` on API
-        failure or an empty/unusable response, and ``ValidationError`` if the
-        generated SQL fails validation.
+        Raises:
+            ``EmptyQueryError`` for a blank query;
+            ``ClarificationNeededError`` when the question names no location
+            (district/firka) and is not an aggregate/ranking/"all" query, in
+            which case NO LLM call is made;
+            ``EmptyLlmResponseError`` when the model returns an empty/unusable
+            response on every attempt (a subclass of ``LlmApiError``);
+            ``LlmApiError`` on other API failures;
+            ``ValidationError`` if, after all attempts, the SQL is still unsafe
+            or not minimal for the question.
         """
         if not user_query or not user_query.strip():
             raise EmptyQueryError("User query is empty.")
 
-        prompt = self._build_prompt(user_query)
-        raw = self._call_llm(prompt)
-        sql = clean_sql(raw)
-        if not sql:
-            raise LlmApiError("LLM response contained no SQL after cleaning.")
-        validate_sql(sql)
-        return sql
+        # Rule 13 -- under-specified location: do NOT generate SQL (no LLM call).
+        # Return a clarification signal; the pipeline surfaces it to the user.
+        if self._intent_validator.needs_clarification(user_query):
+            raise ClarificationNeededError(
+                "This groundwater data question needs a location. Please specify a "
+                "district or firka (for example: 'groundwater level in Coimbatore')."
+            )
+
+        feedback: str | None = None
+        last_error: Exception | None = None
+        for _attempt in range(1, self._max_generation_attempts + 1):
+            prompt = self._build_prompt(user_query, feedback=feedback)
+            raw = self._call_llm(prompt)
+            # --- TEMP DEBUG (remove after investigation): raw LLM response --- #
+            logger.info("=" * 80)
+            logger.info("RAW SQL LLM RESPONSE START")
+            logger.info("=" * 80)
+            logger.info("%r", raw)
+            logger.info("=" * 80)
+            logger.info("RAW SQL LLM RESPONSE END")
+            logger.info("=" * 80)
+            # --- END TEMP DEBUG --- #
+            sql = clean_sql(raw)
+            # --- TEMP DEBUG (remove after investigation): cleaned SQL --- #
+            logger.info("=" * 80)
+            logger.info("CLEANED SQL")
+            logger.info("=" * 80)
+            logger.info("%r", sql)
+            logger.info("=" * 80)
+            # --- END TEMP DEBUG --- #
+            if not sql:
+                last_error = LlmApiError("LLM response contained no SQL after cleaning.")
+                feedback = "Return exactly one SQLite SELECT statement and nothing else."
+                continue
+            try:
+                validate_sql(sql)  # structural / safety (single SELECT, safe, known tables)
+                self._intent_validator.validate(sql, user_query)  # minimality vs. intent
+                return sql
+            except ValidationError as error:
+                last_error = error
+                feedback = (
+                    f"The previous SQL was invalid: {error} "
+                    "Generate one correct, safe SQLite SELECT."
+                )
+            except IntentValidationError as error:
+                last_error = error
+                feedback = error.feedback
+
+        # Attempts exhausted -- surface a validation error (caught upstream and
+        # recorded as a failed agent response; never reaches the executor).
+        if isinstance(last_error, IntentValidationError):
+            raise ValidationError(
+                f"Generated SQL failed intent validation after "
+                f"{self._max_generation_attempts} attempts: {last_error}",
+                sql=getattr(last_error, "sql", None),
+            )
+        if isinstance(last_error, ValidationError):
+            raise last_error
+        raise LlmApiError(
+            f"Failed to generate usable SQL after {self._max_generation_attempts} "
+            f"attempts: {last_error}"
+        )
 
 
 # --------------------------------------------------------------------------- #

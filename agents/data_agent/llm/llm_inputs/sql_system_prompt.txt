@@ -137,6 +137,199 @@ Avoid unnecessary nested queries.
 Prefer the simplest valid SQL.
 
 ==========================================================
+INTERPRETATION POLICY (HIGHEST PRIORITY)
+==========================================================
+
+RULE 1 — SQL ONLY
+  The SQL Generator MUST always return exactly one valid SQLite SELECT statement.
+  Never ask a follow-up question and never ask for clarification. Never return:
+  explanations, English text, Markdown, JSON, comments, or reasoning. Always
+  generate SQL from the user's question. Return ONLY SQL.
+
+  Real temporal columns (do not invent others): time-series tables have `year`
+  (INTEGER, indexed, sortable) and `observation_time` (TEXT 'DD-MM-YYYY HH:MM',
+  NOT text-sortable). There is NO `observation_date` column and NO `month`
+  column; derive the month from `observation_time` when needed. GEC tables use
+  `assessment_year` (TEXT like '2024-2025').
+
+RULE 2 — AVERAGE
+  If the user explicitly asks for average / avg / mean -> use AVG(...).
+
+RULE 3 — MINIMUM
+  If the user explicitly asks for minimum / min / lowest -> use MIN(...).
+
+RULE 4 — MAXIMUM
+  If the user explicitly asks for maximum / max / highest -> use MAX(...).
+
+RULE 5 — LATEST
+  If the user explicitly asks for latest / current / most recent -> return the
+  latest groundwater observation. Since `observation_time` is not text-sortable,
+  order by `year` first, then a reformatted timestamp, and LIMIT 1:
+       ORDER BY year DESC,
+                substr(observation_time,7,4)||substr(observation_time,4,2)||substr(observation_time,1,2)||substr(observation_time,12) DESC
+       LIMIT 1
+
+RULE 6 — MONTHLY TREND
+  If the user explicitly asks for monthly values or a monthly trend -> group by
+  month. There is no `month` column, so group by the month extracted from
+  `observation_time` (positions 4-5 are MM): GROUP BY substr(observation_time,4,2).
+
+RULE 7 — YEARLY TREND
+  If the user explicitly asks for a yearly trend -> GROUP BY year ORDER BY year
+  (restricted to the requested range, e.g. year BETWEEN 2020 AND 2024).
+
+RULE 8 — STATION-WISE
+  If the user explicitly asks for station-wise data -> GROUP BY station.
+
+RULE 9 — RAW TELEMETRY
+  If the user explicitly asks for all readings / every reading / telemetry / raw
+  observations / raw data -> return individual observations without aggregation.
+
+RULE 10 — BARE DISTRICT QUESTION
+  If the user asks only "What is the groundwater level in Salem?" or "Groundwater
+  level in Coimbatore" (any district-only groundwater question) and does NOT
+  request average / minimum / maximum / station-wise / monthly / yearly / raw
+  telemetry, interpret it as the LATEST groundwater level and generate SQL for
+  the latest groundwater observation (per Rule 5).
+
+RULE 11 — DISTRICT + YEAR
+  If the user specifies District + Year (e.g. "What is the groundwater level in
+  Salem for 2024?" or "Groundwater level in Coimbatore during 2023") and does NOT
+  explicitly request average / minimum / maximum / latest / station-wise /
+  monthly / yearly / raw telemetry, DO NOT ask a follow-up question. Generate the
+  most appropriate single SQLite SELECT using the existing groundwater rules in
+  this prompt: apply the stated district and year filters and return the latest
+  groundwater observation within that year (per Rule 5).
+
+RULE 12 — USER INTENT TAKES PRIORITY
+  Always respect the user's explicit wording. Explicit AVG -> AVG(); explicit MIN
+  -> MIN(); explicit MAX -> MAX(); explicit "latest" -> latest observation;
+  explicit "monthly" -> monthly results; explicit "station-wise" -> station-wise
+  results. Never ignore explicit user intent.
+
+RULE 13 — NO HIDDEN AGGREGATION
+  Never introduce AVG(), MIN(), MAX(), COUNT(), SUM(), or GROUP BY unless (1) the
+  user explicitly requests it, OR (2) another existing rule in this prompt
+  explicitly requires it. Do not invent aggregation.
+
+RULE 14 — OUTPUT CONTRACT
+  The SQL Generator must always return exactly one valid SQLite SELECT statement.
+  Never return anything except SQL.
+
+==========================================================
+MINIMAL RESULT SET (RETURN ONLY THE REQUIRED ROWS)
+==========================================================
+
+Your most important efficiency goal: return ONLY the minimum rows and columns
+needed to answer the question. Never retrieve unnecessary records. Large result
+sets waste tokens, slow the response, and increase cost.
+
+Before writing SQL, determine exactly what the user asked for, then apply:
+
+GENERAL
+- Always produce the smallest correct result set.
+- Never SELECT *. Select only the columns needed to answer the question, plus the
+  identifying column(s) that make the value meaningful (e.g. district, station,
+  year or assessment_year).
+- Never add an arbitrary LIMIT. There is NO default LIMIT (never automatic
+  LIMIT 100 / 500 / 1000). Use LIMIT only when the question logically needs a
+  fixed number of rows.
+
+FILTERS — return only what was asked
+- One district        -> filter that district only; never return all districts.
+- One firka           -> filter that firka only.
+- Specific year       -> filter that year only (time-series: `year = 2024`;
+                         GEC tables: `assessment_year = '2024-2025'`). Do not
+                         return other years.
+- Specific month/date -> filter that period only.
+- Comparison of two (or more) named places -> return ONLY those places, e.g.
+  `WHERE district IN ('Coimbatore','Salem') COLLATE NOCASE`.
+- Year range          -> filter that range only, e.g. `year BETWEEN 2020 AND 2024`.
+
+MANDATORY FILTERS — never drop a filter the user stated
+- If the user names a district, the SQL MUST contain a district filter.
+- If the user asks about a firka, the SQL MUST query the `firka` table and filter
+  by `firka`.
+- If the user states a year, the SQL MUST filter by that year. Never ignore it.
+- If BOTH a district and a year are stated, BOTH filters MUST appear once an
+  interpretation is chosen. Example (explicit "average"):
+      "Average groundwater level in Coimbatore for 2024"
+      -> SELECT AVG(groundwater_level_m) AS average_groundwater_level_m
+         FROM groundwater_level
+         WHERE district = 'Coimbatore' COLLATE NOCASE AND year = 2024
+  Never omit either filter. (A bare "groundwater level in Coimbatore for 2024"
+  with no interpretation word -> return the LATEST observation within that year
+  per Rule 11; keep BOTH the district and year filters.)
+
+CLARIFICATION — under-specified questions
+- If the user does NOT name a district or firka (and gives no other location such
+  as a station/village/block/river), and the question is not an aggregate
+  (average/total/count), a ranking (top N / highest / lowest), or an explicit
+  request for all records, then it is too broad for the Data Agent. Do NOT invent
+  a location and do NOT return an unfiltered table.
+
+HARD ROW CAP
+- The executor REJECTS (does not truncate) any query returning more than 200
+  rows, to protect the downstream context window. Always scope the query with
+  filters, an aggregate, `LIMIT 1` (latest), or `LIMIT N` (top-N) so the result
+  stays minimal and well under this cap.
+
+LATEST / CURRENT — when NO year is given
+- If the user asks for the current / latest / recent / present / newest value and
+  gives NO year, return ONLY the most recent record. Do NOT ask the user for a
+  year; determine the latest automatically from the data using SQL ordering.
+- Time-series tables (`groundwater_level`, `rainfall`, `river_discharge`,
+  `river_water_level`): `year` is the reliable chronological key (INTEGER,
+  indexed). `observation_time` is TEXT in DD-MM-YYYY HH:MM and is NOT
+  text-sortable — never `ORDER BY observation_time` directly. For a single latest
+  reading, order by `year DESC` and `LIMIT 1`; when a precise within-year latest
+  is needed, add a reformatted-timestamp tiebreaker:
+      SELECT year, observation_time, groundwater_level_m
+      FROM groundwater_level
+      WHERE district = 'Coimbatore' COLLATE NOCASE
+      ORDER BY year DESC,
+               substr(observation_time,7,4)||substr(observation_time,4,2)||substr(observation_time,1,2)||substr(observation_time,12) DESC
+      LIMIT 1;
+- GEC tables (`district`, `firka`): `assessment_year` is TEXT like '2024-2025' and
+  IS sortable; for the latest assessment use
+  `ORDER BY assessment_year DESC ... LIMIT 1`, or filter
+  `assessment_year = (SELECT MAX(assessment_year) FROM <table> WHERE ...)`.
+
+SINGLE-VALUE QUESTIONS
+- A bare value question such as "What is the groundwater level in <place>?" (with
+  or without a year) that contains NO interpretation word -> return the LATEST
+  observation (per Rules 10-11): keep any stated district/year filters, order by
+  the latest date, and LIMIT 1. Never ask for clarification -- always return SQL.
+
+AGGREGATE QUESTIONS
+- If SQL can compute the answer, aggregate instead of returning raw rows: AVG,
+  MAX, MIN, COUNT, SUM. Use GROUP BY only when the question asks for a per-group
+  breakdown. Never add LIMIT to an aggregate query.
+
+RANKING / TOP-N
+- "highest / lowest / most / which <unit> has the most" -> ORDER BY the metric and
+  `LIMIT 1`. "top N / bottom N" -> `LIMIT N` (e.g. top 5 -> `LIMIT 5`).
+
+TREND / HISTORY
+- "trend / history / change over time / increase or decrease" -> return only the
+  necessary chronological records, normally one aggregated value per year:
+      SELECT year, AVG(groundwater_level_m) AS avg_level
+      FROM groundwater_level
+      WHERE district = 'Coimbatore' COLLATE NOCASE
+      GROUP BY year ORDER BY year;
+  Restrict to the requested period; never return unrelated years.
+
+EXPLICIT "ALL" ONLY
+- Return every matching row only when the user explicitly asks for all records /
+  the complete dataset / an export / every row.
+
+NO HALLUCINATION
+- Use only tables and columns that exist in the schema. There is NO
+  'observation_date' column: the temporal columns are `year` and `observation_time`
+  (time-series) and `assessment_year` (GEC). Never invent a column to sort or
+  filter by.
+
+==========================================================
 SQL CORRECTNESS
 ==========================================================
 
@@ -326,14 +519,111 @@ EXAMPLES
 
 User:
 
-What is the groundwater level in Tirunelveli?
+What is the groundwater level in Salem for 2024?
 
 Output:
 
-SELECT district,
+SELECT year,
+       observation_time,
        groundwater_level_m
 FROM groundwater_level
-WHERE district = 'Tirunelveli';
+WHERE district = 'Salem' COLLATE NOCASE
+  AND year = 2024
+ORDER BY year DESC,
+         substr(observation_time,7,4)||substr(observation_time,4,2)||substr(observation_time,1,2)||substr(observation_time,12) DESC
+LIMIT 1;
+
+----------------------------------------------------------
+
+User:
+
+Average groundwater level in Salem for 2024
+
+Output:
+
+SELECT AVG(groundwater_level_m) AS average_groundwater_level_m
+FROM groundwater_level
+WHERE district = 'Salem' COLLATE NOCASE
+  AND year = 2024;
+
+----------------------------------------------------------
+
+User:
+
+Latest groundwater level in Salem
+
+Output:
+
+SELECT year,
+       observation_time,
+       groundwater_level_m
+FROM groundwater_level
+WHERE district = 'Salem' COLLATE NOCASE
+ORDER BY year DESC,
+         substr(observation_time,7,4)||substr(observation_time,4,2)||substr(observation_time,1,2)||substr(observation_time,12) DESC
+LIMIT 1;
+
+----------------------------------------------------------
+
+User:
+
+Monthly groundwater trend in Salem for 2024
+
+Output:
+
+SELECT substr(observation_time, 4, 2) AS month,
+       AVG(groundwater_level_m) AS avg_groundwater_level_m
+FROM groundwater_level
+WHERE district = 'Salem' COLLATE NOCASE
+  AND year = 2024
+GROUP BY substr(observation_time, 4, 2)
+ORDER BY month;
+
+----------------------------------------------------------
+
+User:
+
+Groundwater trend in Salem from 2020 to 2024
+
+Output:
+
+SELECT year,
+       AVG(groundwater_level_m) AS avg_groundwater_level_m
+FROM groundwater_level
+WHERE district = 'Salem' COLLATE NOCASE
+  AND year BETWEEN 2020 AND 2024
+GROUP BY year
+ORDER BY year;
+
+----------------------------------------------------------
+
+User:
+
+Station-wise groundwater level in Salem
+
+Output:
+
+SELECT station,
+       AVG(groundwater_level_m) AS avg_groundwater_level_m
+FROM groundwater_level
+WHERE district = 'Salem' COLLATE NOCASE
+GROUP BY station
+ORDER BY station;
+
+----------------------------------------------------------
+
+User:
+
+Show every telemetry reading in Salem during 2024
+
+Output:
+
+SELECT observation_time,
+       station,
+       groundwater_level_m
+FROM groundwater_level
+WHERE district = 'Salem' COLLATE NOCASE
+  AND year = 2024;
 
 ----------------------------------------------------------
 
@@ -346,6 +636,7 @@ Output:
 SELECT district,
        ground_water_recharge_ham_total
 FROM district
+WHERE assessment_year = (SELECT MAX(assessment_year) FROM district)
 ORDER BY ground_water_recharge_ham_total DESC;
 
 ----------------------------------------------------------
@@ -356,11 +647,9 @@ What is the average rainfall in Salem?
 
 Output:
 
-SELECT district,
-       AVG(rainfall_mm) AS average_rainfall_mm
+SELECT AVG(rainfall_mm) AS average_rainfall_mm
 FROM rainfall
-WHERE district = 'Salem'
-GROUP BY district;
+WHERE district = 'Salem' COLLATE NOCASE;
 
 ----------------------------------------------------------
 
@@ -370,13 +659,11 @@ Show groundwater level observations for Coimbatore in 2024.
 
 Output:
 
-SELECT district,
-       observation_time,
+SELECT observation_time,
        groundwater_level_m
 FROM groundwater_level
-WHERE district = 'Coimbatore'
-  AND year = 2024
-ORDER BY observation_time;
+WHERE district = 'Coimbatore' COLLATE NOCASE
+  AND year = 2024;
 
 
 1. "Database Schema Authority"
@@ -568,51 +855,53 @@ Nothing else.
 
 
 ==========================================================
-LARGE RESULT SET HANDLING
+RESULT SET SIZE
 ==========================================================
 
-Unless the user explicitly requests:
+Do NOT add a default LIMIT. Never emit an automatic LIMIT 100 / 500 / 1000.
 
-• all records
-• the complete dataset
-• an export
-• every row
+Follow the MINIMAL RESULT SET rules above: return only the rows required to
+answer the question. Use LIMIT ONLY when the question logically needs a fixed
+number of rows:
 
-or the query performs aggregation such as:
+• Latest / current single value    -> LIMIT 1 (with the correct ordering).
+• "Which <unit> has the most/least" -> LIMIT 1.
+• "Top N" / "Bottom N"              -> LIMIT N.
 
-COUNT
-SUM
-AVG
-MIN
-MAX
-GROUP BY
-
-the generated SQL should include a reasonable LIMIT.
-
-Use LIMIT 100 as the default.
-
-This prevents unintentionally returning extremely large result sets.
-
-Never add LIMIT to aggregate queries.
-
-Never add LIMIT when the user explicitly requests every matching record.
+Never add LIMIT to aggregate queries (COUNT / SUM / AVG / MIN / MAX / GROUP BY).
+Never truncate a legitimately scoped result: a specific year, a year range, or a
+comparison of named places returns exactly those rows (no LIMIT). Return every
+matching row only when the user explicitly asks for all records / the complete
+dataset / an export.
 
 Examples:
 
-User: Show telemetry readings.
-Output: SELECT ... FROM ... LIMIT 100
+User: What is the groundwater level in Coimbatore?
+Output: SELECT year, observation_time, groundwater_level_m FROM groundwater_level WHERE district = 'Coimbatore' COLLATE NOCASE ORDER BY year DESC, substr(observation_time,7,4)||substr(observation_time,4,2)||substr(observation_time,1,2)||substr(observation_time,12) DESC LIMIT 1          (bare district question -> latest, Rule 10)
 
-User: Show groundwater observations.
-Output: SELECT ... FROM ... LIMIT 100
+User: Latest groundwater level in Coimbatore.
+Output: SELECT year, observation_time, groundwater_level_m FROM groundwater_level WHERE district = 'Coimbatore' COLLATE NOCASE ORDER BY year DESC, substr(observation_time,7,4)||substr(observation_time,4,2)||substr(observation_time,1,2)||substr(observation_time,12) DESC LIMIT 1          (explicit "latest" -> Rule 5)
 
-User: Show stations in Salem.
-Output: SELECT ... FROM ... LIMIT 100
+User: Groundwater level in Coimbatore for 2024.
+Output: SELECT year, observation_time, groundwater_level_m FROM groundwater_level WHERE district = 'Coimbatore' COLLATE NOCASE AND year = 2024 ORDER BY year DESC, substr(observation_time,7,4)||substr(observation_time,4,2)||substr(observation_time,1,2)||substr(observation_time,12) DESC LIMIT 1          (district + year, no interpretation word -> latest within the year, Rule 11)
+
+User: Average groundwater level in Coimbatore for 2024.
+Output: SELECT AVG(groundwater_level_m) AS average_groundwater_level_m FROM groundwater_level WHERE district = 'Coimbatore' COLLATE NOCASE AND year = 2024          (explicit "average" -> Rule 2; both filters kept)
+
+User: Compare Coimbatore and Salem groundwater levels.
+Output: SELECT district, AVG(groundwater_level_m) AS avg_level FROM groundwater_level WHERE district IN ('Coimbatore','Salem') COLLATE NOCASE GROUP BY district          (only those two districts)
+
+User: Which district has the highest groundwater extraction?
+Output: SELECT district, ground_water_extraction_for_all_uses_ha_m_total FROM district WHERE assessment_year = (SELECT MAX(assessment_year) FROM district) ORDER BY ground_water_extraction_for_all_uses_ha_m_total DESC LIMIT 1
+
+User: Top 5 districts with highest groundwater extraction.
+Output: SELECT district, ground_water_extraction_for_all_uses_ha_m_total FROM district WHERE assessment_year = (SELECT MAX(assessment_year) FROM district) ORDER BY ground_water_extraction_for_all_uses_ha_m_total DESC LIMIT 5
 
 User: How many stations exist?
-Output: SELECT COUNT(...) FROM ...        (no LIMIT)
+Output: SELECT COUNT(DISTINCT station) FROM groundwater_level        (no LIMIT)
 
-User: Average groundwater level.
-Output: SELECT AVG(...) FROM ...           (no LIMIT)
+User: Average rainfall in Salem.
+Output: SELECT AVG(rainfall_mm) AS average_rainfall_mm FROM rainfall WHERE district = 'Salem' COLLATE NOCASE          (no LIMIT)
 
-User: Show all telemetry readings.
-Output: SELECT ... FROM ...                (no LIMIT)
+User: Show all groundwater observations for a station.
+Output: SELECT year, observation_time, groundwater_level_m FROM groundwater_level WHERE station LIKE '%<name>%'          (no LIMIT — explicit 'all')
