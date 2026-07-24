@@ -33,13 +33,11 @@ Ask natural-language questions about Tamil Nadu groundwater and get **evidence-g
 - [Project Structure](#project-structure)
 - [How It Works](#how-it-works)
 - [Example Questions](#example-questions)
-- [Screenshots](#screenshots)
+- [Application Showcase](#application-showcase)
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
 - [Roadmap](#roadmap)
 - [Design Principles](#design-principles)
-- [License](#license)
-- [Author](#author)
 
 ---
 
@@ -61,6 +59,25 @@ The system answers groundwater questions using:
 Every answer is built from **retrieved evidence**, not from the language model's memory alone.
 
 > **Scope:** the current release focuses on **Tamil Nadu** groundwater intelligence.
+
+---
+
+## 📊 Project Statistics
+
+| Metric | Value |
+|---------|------:|
+| Official Groundwater Reports | **52+** |
+| Embedded Document Chunks | **17,915** |
+| Vector Database | **FAISS** |
+| Districts Covered | **38** |
+| Villages (Firkas) Covered | **1,203+** |
+| Structured Groundwater Records | **6M+** |
+| Specialist AI Agents | **5** |
+| Backend Framework | **FastAPI** |
+| Frontend Framework | **React + TypeScript** |
+| Database | **SQLite** |
+| Machine Learning Model | **XGBoost** |
+| Retrieval Model | **Sentence Transformers** |
 
 ---
 
@@ -239,17 +256,55 @@ Compare groundwater level in Salem between 2023 and 2024.
 
 ---
 
-## Screenshots
+## Application Showcase
 
-> Screenshots are placeholders. Add images under `docs/screenshots/` and they will render here.
+### Landing Page
 
-| Landing Page | Chat Interface |
-| :---: | :---: |
-| ![Landing page](docs/screenshots/landing.png) | ![Chat interface](docs/screenshots/chat.png) |
+The landing page introduces AquaMind AI and provides a clean entry point into the groundwater intelligence platform.
 
-| Prediction | Recommendation |
-| :---: | :---: |
-| ![Prediction](docs/screenshots/prediction.png) | ![Recommendation](docs/screenshots/recommendation.png) |
+<p align="center">
+  <img src="docs/landing-page.png" alt="Landing Page" width="100%">
+</p>
+
+---
+
+### Knowledge Agent
+
+Answers conceptual groundwater questions using Retrieval-Augmented Generation (RAG) over official groundwater reports.
+
+<p align="center">
+  <img src="docs/knowledge-agent.png" alt="Knowledge Agent" width="100%">
+</p>
+
+---
+
+### Data Agent
+
+Retrieves groundwater measurements directly from structured datasets using validated SQL generation.
+
+<p align="center">
+  <img src="docs/data-agent.png" alt="Data Agent" width="100%">
+</p>
+
+---
+
+### Prediction Agent
+
+Forecasts future groundwater levels using the trained machine learning prediction model.
+
+<p align="center">
+  <img src="docs/prediction-agent.png" alt="Prediction Agent" width="100%">
+</p>
+
+---
+
+### Recommendation Agent
+
+Provides evidence-based groundwater management recommendations derived from official groundwater guidance.
+
+<p align="center">
+  <img src="docs/recommendation-agent.png" alt="Recommendation Agent" width="100%">
+</p>
 
 ---
 
