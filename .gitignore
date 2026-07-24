@@ -1,5 +1,6 @@
 # Secrets — never commit
 .env
+.env.testing
 
 # Python caches
 __pycache__/

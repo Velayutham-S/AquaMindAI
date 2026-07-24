@@ -1,0 +1,32 @@
+# AquaMind AI - complete runtime dependency manifest.
+#
+# This is the single entry point for a fresh install:
+#     pip install -r requirements.txt
+#
+# It pulls in the backend web layer and adds the AI pipeline's runtime
+# dependencies. Version ranges are pinned to the versions validated against the
+# working environment; heavy transitive deps (torch, transformers,
+# huggingface_hub, scipy, threadpoolctl) are resolved automatically by
+# sentence-transformers / scikit-learn. The backend Dockerfile installs this
+# file automatically when it is present.
+
+# --- Backend web layer (FastAPI / uvicorn / pydantic / dotenv) ---
+-r backend/requirements.txt
+
+# --- LLM client (OpenCode Zen + Groq via the OpenAI-compatible SDK) ---
+openai>=2.4,<3.0
+
+# --- Structured-data pipeline ---
+numpy>=2.4,<3.0
+pandas>=2.3,<3.0
+
+# --- Prediction model (XGBoost regressor inside a scikit-learn Pipeline) ---
+# scikit-learn and xgboost are pinned close to the versions the saved model
+# artifact was serialized with, so joblib can unpickle it reliably.
+scikit-learn>=1.8,<2.0
+xgboost>=3.2,<4.0
+joblib>=1.5,<2.0
+
+# --- Knowledge retrieval (FAISS vector store + sentence-transformer embeddings) ---
+faiss-cpu>=1.14,<2.0
+sentence-transformers>=5.5,<6.0
