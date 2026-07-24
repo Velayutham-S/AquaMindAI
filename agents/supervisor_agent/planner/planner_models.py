@@ -27,9 +27,10 @@ class IntentType(str, Enum):
     PREDICTION_QUERY = "prediction_query"
     SYSTEM_INFORMATION = "system_information"
     MIXED_QUERY = "mixed_query"
-    # Present for forward-compatibility with routing_rules.md. These map to the
-    # General LLM, which is out of scope this milestone, so a decision using them
-    # cannot select a valid agent and will be rejected by validation.
+    # Out-of-domain intents: the query is NOT a groundwater request AquaMind AI
+    # handles (greetings / small talk -> general_chat; any other non-groundwater
+    # or disallowed request -> out_of_scope). These select NO specialist agent;
+    # the pipeline returns the predefined out-of-domain message (no LLM is called).
     GENERAL_CHAT = "general_chat"
     OUT_OF_SCOPE = "out_of_scope"
 
@@ -48,6 +49,15 @@ class AgentName(str, Enum):
     DATA_AGENT = "data_agent"
     KNOWLEDGE_AGENT = "knowledge_agent"
     PREDICTION_AGENT = "prediction_agent"
+
+
+#: Intents that mark a query as OUT OF DOMAIN (outside AquaMind AI's groundwater
+#: focus). An out-of-domain decision is terminal: it selects no specialist agent,
+#: triggers no LLM call, and the pipeline returns the predefined application
+#: message instead of running the groundwater workflow.
+OUT_OF_DOMAIN_INTENTS: frozenset[IntentType] = frozenset(
+    {IntentType.GENERAL_CHAT, IntentType.OUT_OF_SCOPE}
+)
 
 
 @dataclass(frozen=True)
@@ -72,6 +82,15 @@ class PlannerDecision:
     district: str | None = None
     firka: str | None = None
     target_year: int | None = None
+
+    @property
+    def is_out_of_domain(self) -> bool:
+        """True when the query falls outside AquaMind AI's groundwater domain.
+
+        Out-of-domain decisions run no specialist agent; the pipeline returns the
+        predefined out-of-domain message without calling any LLM.
+        """
+        return self.intent in OUT_OF_DOMAIN_INTENTS
 
     def to_dict(self) -> dict[str, Any]:
         return {

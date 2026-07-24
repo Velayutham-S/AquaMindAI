@@ -27,14 +27,22 @@ The Supervisor **never**: retrieves SQL, retrieves documents, runs predictions, 
 
 ## 2. Supported Execution Targets
 
-The Supervisor may route to **only** these four targets. No others exist.
+The Supervisor may route to **only** these three specialist agents. No others exist.
 
 | Target | Handles | Capability spec |
 |---|---|---|
 | **Data Agent** | Current / historical **measured** structured data — groundwater level, rainfall, river level, river discharge, district & firka GEC assessment; statistics, counts, comparisons of recorded values (Tamil Nadu). | `database_schema.md` |
 | **Knowledge Agent** | Document-grounded **knowledge** — definitions, concepts, policies, guidelines, recharge, aquifers, quality, hydrogeology, management, **and AquaMind AI system identity**. | `knowledge_agent_schema.md` |
 | **Prediction Agent** | **Forecast / predicted / future / estimated** groundwater level (`groundwater_level_m`) via a saved ML model. | `prediction_agent_schema.md` |
-| **General Conversation LLM** | Greetings, small talk, thanks/goodbye, and off-topic requests unrelated to groundwater. | (built-in) |
+
+> ### AUTHORITATIVE OUT-OF-DOMAIN OVERRIDE
+>
+> **AquaMind AI has NO General Conversation LLM.** Wherever this document says a query goes to the "General LLM" / "General Conversation LLM" (e.g. greetings, small talk, jokes, coding, translation, off-topic, or out-of-scope requests), that query is **OUT OF DOMAIN**. For it:
+> - set `intent` to `general_chat` (greetings / small talk / thanks) or `out_of_scope` (any other non-groundwater or disallowed request),
+> - set `agents = []` and `execution_order = []`,
+> - keep `requires_clarification = false` and `clarification_question = null`.
+>
+> **Never emit `general_llm` (or any other name) as an agent.** AquaMind AI returns a fixed message describing its groundwater purpose; no agent and no LLM run for out-of-domain queries. This override supersedes every "General LLM" mention below.
 
 ---
 
@@ -342,7 +350,7 @@ The Supervisor Planner emits a **structured routing decision** (the downstream e
 |---|---|---|
 | `intent` | `general_chat`, `system_information`, `data_query`, `knowledge_query`, `prediction_query`, `mixed_query`, `out_of_scope` | Classified primary intent. |
 | `requires_clarification` | boolean | `true` → do not route yet; ask `clarification_question`. |
-| `agents` | subset of `["data_agent", "knowledge_agent", "prediction_agent", "general_llm"]` | Agents to execute (empty when clarifying). |
+| `agents` | subset of `["data_agent", "knowledge_agent", "prediction_agent"]` | Agents to execute (empty when clarifying or when the query is out of domain). Never `general_llm`. |
 | `execution_order` | ordered list of the same names | Order to run them (per §12). Single-agent = one item. |
 | `clarification_question` | string (optional) | Present only when `requires_clarification = true`. |
 | `confidence` | `HIGH`, `MEDIUM`, `LOW` (optional) | Routing confidence (§19); `LOW` implies `requires_clarification = true`. |

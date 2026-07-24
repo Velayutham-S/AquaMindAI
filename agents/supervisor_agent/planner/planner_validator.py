@@ -5,7 +5,12 @@ a strongly-typed, fully-consistent ``PlannerDecision`` — or reject it. It neve
 executes agents, never calls an LLM, and never repairs intent by guessing; it
 only enforces that the decision is well-formed and internally consistent.
 
-Enforced checks:
+Out-of-domain (non-groundwater) intents (general_chat / out_of_scope) are a
+terminal decision: they select no specialist agent, so they bypass the
+groundwater agent-consistency checks and are validated only for a clean terminal
+shape (confident, non-clarifying, no agent).
+
+Enforced checks (groundwater decisions):
 * required fields present and correctly typed,
 * enum values valid (intent, confidence),
 * agents are ONLY data_agent / knowledge_agent / prediction_agent
@@ -25,6 +30,7 @@ from __future__ import annotations
 from typing import Any
 
 from .planner_models import (
+    OUT_OF_DOMAIN_INTENTS,
     AgentName,
     ConfidenceLevel,
     IntentType,
@@ -87,6 +93,16 @@ class PlannerValidator:
         if not isinstance(reason, str) or not reason.strip():
             raise PlannerValidationError("'reason' must be a non-empty string.", payload=payload)
 
+        # Out-of-domain (non-groundwater) requests are a terminal decision: no
+        # specialist agent runs. Handle them here -- before the strict agent
+        # parsing and the groundwater consistency checks -- so the decision is
+        # accepted gracefully instead of being rejected. Groundwater intents fall
+        # through to the unchanged validation path below.
+        if intent in OUT_OF_DOMAIN_INTENTS:
+            return self._build_out_of_domain(
+                intent, confidence, requires_clarification, clarification_question, reason, payload
+            )
+
         agents = self._parse_agents(payload["agents"], "agents", payload)
         execution_order = self._parse_agents(payload["execution_order"], "execution_order", payload)
 
@@ -110,6 +126,47 @@ class PlannerValidator:
             district=district,
             firka=firka,
             target_year=target_year,
+        )
+
+    # ------------------------------------------------------------------ #
+    # Out-of-domain (terminal) decision
+    # ------------------------------------------------------------------ #
+
+    @staticmethod
+    def _build_out_of_domain(
+        intent, confidence, requires_clarification, clarification_question, reason, payload
+    ) -> PlannerDecision:
+        """Validate and build a terminal out-of-domain decision (no agent runs).
+
+        An out-of-domain query is not a groundwater request AquaMind AI handles,
+        so no specialist agent is selected and no prediction slots apply. The
+        decision must be confident and non-clarifying; the ``agents`` field is
+        irrelevant here (nothing executes) and is normalized to empty.
+        """
+        if requires_clarification:
+            raise PlannerValidationError(
+                "An out-of-domain decision must not require clarification.", payload=payload
+            )
+        if clarification_question is not None:
+            raise PlannerValidationError(
+                "An out-of-domain decision must have a null clarification_question.",
+                payload=payload,
+            )
+        if confidence is ConfidenceLevel.LOW:
+            raise PlannerValidationError(
+                "An out-of-domain decision must not use LOW confidence.", payload=payload
+            )
+        return PlannerDecision(
+            intent=intent,
+            confidence=confidence,
+            requires_clarification=False,
+            clarification_question=None,
+            agents=(),
+            execution_order=(),
+            reason=reason.strip(),
+            district=None,
+            firka=None,
+            target_year=None,
         )
 
     # ------------------------------------------------------------------ #
