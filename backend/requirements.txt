@@ -1,0 +1,8 @@
+# Backend integration layer dependencies.
+# NOTE: the existing AI pipeline has its own dependencies (openai, python-dotenv,
+# sentence-transformers, faiss, xgboost, joblib, pandas, numpy, ...). Those must
+# also be installed in the deployment environment for the pipeline to run.
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.30,<1.0
+pydantic>=2.7,<3.0
+python-dotenv>=1.0,<2.0
