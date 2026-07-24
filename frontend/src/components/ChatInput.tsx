@@ -83,8 +83,7 @@ export function ChatInput({
         </button>
       </div>
       <p className="chat-input__hint">
-        AquaMind AI answers from official groundwater datasets and documents. Press Enter to send,
-        Shift+Enter for a new line.
+        AquaMind AI can make mistakes. Answers are grounded in official groundwater data.
       </p>
     </form>
   );

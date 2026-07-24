@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useChat } from '../hooks/useChat';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
 import { MessageList } from '../components/MessageList';
@@ -54,14 +55,17 @@ export function ChatPage() {
     }
   }, [id, activeConversation, conversations, selectConversation, navigate]);
 
+  const [collapsed, setCollapsed] = useLocalStorage('aquamind.sidebarCollapsed', false);
+  const toggleCollapse = () => setCollapsed((prev) => !prev);
+
   const messages = activeConversation?.messages ?? [];
   const hasMessages = messages.length > 0;
 
   return (
-    <div className="chat-layout">
-      <Sidebar />
+    <div className={`chat-layout${collapsed ? ' chat-layout--collapsed' : ''}`}>
+      <Sidebar collapsed={collapsed} onToggleCollapse={toggleCollapse} />
       <div className="chat-main">
-        <Header />
+        <Header collapsed={collapsed} onToggleCollapse={toggleCollapse} />
 
         {hasMessages ? (
           <MessageList messages={messages} isLoading={isLoading} onRetry={() => void retryLastMessage()} />
