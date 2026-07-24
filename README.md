@@ -19,7 +19,6 @@ Ask natural-language questions about Tamil Nadu groundwater and get **evidence-g
 ![XGBoost](https://img.shields.io/badge/XGBoost-regressor-337AB7)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-pipeline-F7931E?logo=scikitlearn&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-database-003B57?logo=sqlite&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green)
 
 </div>
 
@@ -265,7 +264,7 @@ Compare groundwater level in Salem between 2023 and 2024.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/aquamind-ai.git
+git clone https://github.com/Velayutham-S/aquamind-ai.git
 cd aquamind-ai
 ```
 
@@ -383,19 +382,12 @@ AquaMind AI is built as a **production-style**, not a prototype, codebase:
 
 ---
 
-## License
-
-Released under the **MIT License** — free to use, modify, and distribute with attribution.
 
 ---
 
-## Author
 
-**Velayutham S**
-B.Tech, Artificial Intelligence & Machine Learning
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/your-handle)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?logo=github&logoColor=white)](https://github.com/your-username)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/velayutham-ai/)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?logo=github&logoColor=white)](https://github.com/Velayutham-S)
 
 <div align="center">
 
